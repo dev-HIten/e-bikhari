@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky Dice Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎲 Lucky Dice Game 🎲</h1>
+        <div class="balance">
+            <p>Balance: <span id="balance">1000</span> Coins</p>
+        </div>
+        <div class="game-area">
+            <input type="number" id="bet-amount" placeholder="Enter your bet">
+            <div class="choices">
+                <button id="above-btn">Above 7</button>
+                <button id="seven-btn">Exactly 7</button>
+                <button id="below-btn">Below 7</button>
+            </div>
+            <div class="dice-container">
+                <div class="dice" id="dice">?</div>
+            </div>
+        </div>
+        <div class="outcome">
+            <p id="outcome-message"></p>
+        </div>
+        <button id="reset-btn" class="reset-button">Reset Game</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

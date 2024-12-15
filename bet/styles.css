@@ -1,0 +1,135 @@
+/* General Styling */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    text-align: center;
+    background: linear-gradient(145deg, #333333, #1e1e1e);
+    padding: 20px 30px;
+    border-radius: 15px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.7);
+    width: 90%;
+    max-width: 400px;
+}
+
+h1 {
+    font-size: 30px;
+    color: #f7c843;
+    text-shadow: 0 0 10px #f7c843;
+    margin-bottom: 20px;
+}
+
+.balance p {
+    font-size: 18px;
+    color: #00ff88;
+    text-shadow: 0 0 8px #00ff88;
+    margin-bottom: 20px;
+}
+
+/* Input Field */
+input[type="number"] {
+    width: 90%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 2px solid #555;
+    background-color: #202020;
+    color: #fff;
+    outline: none;
+    margin-bottom: 15px;
+    transition: border-color 0.3s;
+}
+
+input[type="number"]:focus {
+    border-color: #f7c843;
+}
+
+/* Buttons */
+button {
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    background: linear-gradient(145deg, #f7c843, #d69e31);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 10px;
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 5px 15px rgba(247, 200, 67, 0.6);
+}
+
+/* Dice Display */
+.dice-container {
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+}
+
+.dice {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(145deg, #222222, #111111);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 36px;
+    font-weight: bold;
+    color: #00ff88;
+    text-shadow: 0 0 15px #00ff88;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.7);
+}
+
+/* Outcome Message */
+.outcome p {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* Reset Button */
+.reset-button {
+    background: linear-gradient(145deg, #d13b3b, #a52828);
+    color: #fff;
+    text-shadow: 0 0 5px #ff8888;
+}
+
+/* Dice Animation */
+@keyframes roll {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(90deg); }
+    50% { transform: rotate(180deg); }
+    75% { transform: rotate(270deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.dice {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(145deg, #222222, #111111);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 36px;
+    font-weight: bold;
+    color: #00ff88;
+    text-shadow: 0 0 15px #00ff88;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.7);
+    animation: none;
+}
