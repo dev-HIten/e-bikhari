@@ -137,25 +137,31 @@ function isPathClear(fromRow, fromCol, toRow, toCol) {
 
 // Handle cell clicks
 function handleCellClick(row, col) {
+    // Prevent default touch behavior
+    event?.preventDefault();
+    
     if (selectedCell) {
         const [fromRow, fromCol] = selectedCell;
         if (isValidMove(fromRow, fromCol, row, col)) {
-            // Save the current board state for undo functionality
             moveHistory.push(JSON.parse(JSON.stringify(boardState)));
-
-            // Make the move
             boardState[row][col] = boardState[fromRow][fromCol];
             boardState[fromRow][fromCol] = "";
-
-            // Change turn
             currentPlayer = currentPlayer === "white" ? "black" : "white";
+            
+            // Add visual feedback for move completion
+            const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+            cell.style.backgroundColor = "#ffeb3b";
+            setTimeout(() => cell.style.backgroundColor = "", 300);
         }
-        selectedCell = null; // Deselect the piece
+        selectedCell = null;
     } else if (boardState[row][col] && getPieceColor(boardState[row][col]) === currentPlayer) {
-        // Select a piece if it's the current player's turn
         selectedCell = [row, col];
+        
+        // Add visual feedback for selection
+        const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+        cell.style.backgroundColor = "#81c784";
     }
-    drawBoard(); // Redraw the board
+    drawBoard();
 }
 
 // Undo the last move
@@ -188,5 +194,17 @@ function resetGame() {
     drawBoard();
 }
 
-// Initialize the game
-drawBoard();
+// Initialize the game with touch event handling
+function initializeGame() {
+    drawBoard();
+    
+    // Prevent unwanted scrolling/zooming on mobile
+    document.addEventListener('touchmove', function(event) {
+        if (event.target.closest('.board')) {
+            event.preventDefault();
+        }
+    }, { passive: false });
+}
+
+// Replace the final drawBoard() call with initializeGame()
+initializeGame();

@@ -49,12 +49,8 @@ function handleClick(e) {
 }
 
 function restartGame() {
-    currentPlayer = 'X';
-    cells.forEach(cell => {
-        cell.textContent = '';
-        cell.classList.remove('taken');
-    });
-    result.classList.add('hidden');
+    // Refresh the entire page
+    window.location.reload();
 }
 
 // Event Listeners

@@ -19,11 +19,13 @@ body {
 /* Game Container */
 .game-container {
     text-align: center;
-    padding: 20px;
+    padding: 10px;
     border: 2px solid #333;
     border-radius: 10px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 95vw;
+    max-width: 600px;
 }
 
 h1 {
@@ -55,11 +57,13 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
     font-weight: bold;
     user-select: none;
     position: relative;
     cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .cell:nth-child(even) {
@@ -80,11 +84,13 @@ p {
 
 .piece {
     color: #000;
-    font-size: 1.8rem;
+    font-size: clamp(1.3rem, 3.5vw, 1.8rem);
 }
 
 /* Buttons */
 button {
+    min-height: 44px;
+    min-width: 44px;
     margin: 10px 5px;
     padding: 10px 20px;
     background-color: #333;
@@ -99,4 +105,27 @@ button {
 
 button:hover {
     background-color: #555;
+}
+
+/* Game Container - make it more mobile-friendly */
+.game-container {
+    width: 95vw;
+    max-width: 600px;
+    padding: 10px;
+}
+
+/* Improve button touch targets */
+button {
+    min-height: 44px;
+    min-width: 44px;
+    margin: 10px 5px;
+    padding: 10px 20px;
+}
+
+/* Make buttons stack on small screens */
+.game-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
 }

@@ -9,6 +9,7 @@ const resetButton = document.getElementById("reset-btn");
 const aboveButton = document.getElementById("above-btn");
 const belowButton = document.getElementById("below-btn");
 const sevenButton = document.getElementById("seven-btn");
+const preset10Button = document.getElementById("preset-10-btn");
 
 // Update Balance Display
 function updateBalanceDisplay() {
@@ -91,11 +92,17 @@ function resetGame() {
     outcomeMessage.style.color = "white";
 }
 
+// Add this new function
+function setBetAmount10() {
+    betAmountInput.value = 10;
+}
+
 // Event Listeners
 aboveButton.addEventListener("click", () => handleBet("above"));
 belowButton.addEventListener("click", () => handleBet("below"));
 sevenButton.addEventListener("click", () => handleBet("seven"));
 resetButton.addEventListener("click", resetGame);
+preset10Button.addEventListener("click", setBetAmount10);
 
 // Initial Setup
 updateBalanceDisplay();
