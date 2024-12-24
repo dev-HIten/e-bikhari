@@ -18,5 +18,14 @@
         </div>
     </div>
     <script src="script.js"></script>
+    <script>
+        // Remove preload class after page load to enable animations
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('preload');
+            requestAnimationFrame(() => {
+                document.body.classList.remove('preload');
+            });
+        });
+    </script>
 </body>
 </html>
