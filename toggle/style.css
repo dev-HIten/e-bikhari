@@ -5,9 +5,25 @@
 }
 
 :root {
-    --light-shadow: rgba(255, 255, 255, 0.9);
-    --dark-shadow: rgba(0, 0, 0, 0.2);
-    --glow-color: #64ffda;
+    --primary: #64ffda;
+    --secondary: #FF4081;
+    --dark: #1a1a1a;
+    --light: #f0f0f0;
+    --toggle-width: 200px;
+    --toggle-height: 100px;
+    --orb-size: 80px;
+    --glow-primary: #00fff2;
+    --glow-secondary: #7700ff;
+    --day-primary: #FFB300;
+    --day-secondary: #FF5722;
+    --night-primary: #3F51B5;
+    --night-secondary: #7986CB;
+    --gradient-1: #FF0080;
+    --gradient-2: #FF8C00;
+    --gradient-3: #40E0D0;
+    --gradient-4: #FF0080;
+    --dark-gradient-1: #2A2A72;
+    --dark-gradient-2: #009FFD;
 }
 
 body {
@@ -15,14 +31,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #f0f0f0;
-    transition: background 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: hidden;
-    position: relative;
+    background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body.dark {
-    background: #1a1a1a;
+    background: linear-gradient(45deg, #1a1a2e, #16213e);
 }
 
 .background-ripple {
@@ -43,7 +57,6 @@ body.dark {
     padding: 20px;
     position: relative;
     z-index: 1;
-    perspective: 1000px;
 }
 
 .toggle-button {
@@ -55,19 +68,20 @@ body.dark {
     cursor: pointer;
     position: relative;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-style: preserve-3d;
     box-shadow: 
-        5px 5px 15px var(--dark-shadow),
-        -5px -5px 15px var(--light-shadow),
-        inset 0 0 0 var(--dark-shadow),
-        inset 0 0 0 var(--light-shadow);
+        5px 5px 15px rgba(0, 0, 0, 0.2),
+        -5px -5px 15px rgba(255, 255, 255, 0.9),
+        inset 0 0 0 rgba(0, 0, 0, 0.2),
+        inset 0 0 0 rgba(255, 255, 255, 0.9);
 }
 
 .toggle-button:hover {
-    transform: scale(1.05) rotateX(10deg);
+    transform: scale(1.05);
     box-shadow: 
-        10px 10px 20px var(--dark-shadow),
-        -10px -10px 20px var(--light-shadow);
+        10px 10px 20px rgba(0, 0, 0, 0.2),
+        -10px -10px 20px rgba(255, 255, 255, 0.9),
+        inset 0 0 0 rgba(0, 0, 0, 0.2),
+        inset 0 0 0 rgba(255, 255, 255, 0.9);
 }
 
 .toggle-circle {
@@ -80,9 +94,8 @@ body.dark {
     border-radius: 50%;
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 
-        4px 4px 8px var(--dark-shadow),
-        -4px -4px 8px var(--light-shadow);
-    animation: floatEffect 3s ease-in-out infinite;
+        4px 4px 8px rgba(0, 0, 0, 0.2),
+        -4px -4px 8px rgba(255, 255, 255, 0.9);
 }
 
 .toggle-button::before {
@@ -100,33 +113,14 @@ body.dark {
     animation: borderGlow 2s linear infinite;
 }
 
-.toggle-button::after {
-    content: '';
-    position: absolute;
-    inset: -10px;
-    border-radius: 45px;
-    background: conic-gradient(
-        from 0deg,
-        transparent 0deg,
-        var(--glow-color) 90deg,
-        transparent 180deg
-    );
-    animation: rotateConic 2s linear infinite;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.toggle-button:hover::after {
-    opacity: 0.5;
-}
-
 /* Active State */
 .toggle-button.active {
     background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-    transform: scale(1.05);
     box-shadow: 
         5px 5px 15px rgba(0, 0, 0, 0.4),
-        -5px -5px 15px rgba(255, 255, 255, 0.1);
+        -5px -5px 15px rgba(255, 255, 255, 0.1),
+        inset 0 0 0 rgba(0, 0, 0, 0.4),
+        inset 0 0 0 rgba(255, 255, 255, 0.1);
 }
 
 .toggle-button.active .toggle-circle {
@@ -137,10 +131,10 @@ body.dark {
         -4px -4px 8px rgba(255, 255, 255, 0.1),
         inset 2px 2px 4px rgba(255, 255, 255, 0.1),
         inset -2px -2px 4px rgba(0, 0, 0, 0.4);
-    animation: pulseGlow 2s infinite, spinAndFloat 3s ease-in-out infinite;
+    animation: pulseGlow 2s infinite;
 }
 
-/* Effects */
+/* Ripple Effect */
 .ripple {
     position: absolute;
     border-radius: 50%;
@@ -150,12 +144,13 @@ body.dark {
     pointer-events: none;
 }
 
+/* Particle Effects */
 .particle {
     position: absolute;
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--glow-color);
+    background: #fff;
     pointer-events: none;
     animation: particleBurst 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
@@ -182,24 +177,24 @@ body.dark {
 @keyframes pulseGlow {
     0% {
         box-shadow: 
-            0 0 5px var(--glow-color),
-            0 0 10px var(--glow-color),
-            0 0 15px var(--glow-color),
-            0 0 20px var(--glow-color);
+            0 0 5px #fff,
+            0 0 10px #fff,
+            0 0 15px #fff,
+            0 0 20px #fff;
     }
     50% {
         box-shadow: 
-            0 0 10px var(--glow-color),
-            0 0 20px var(--glow-color),
-            0 0 30px var(--glow-color),
-            0 0 40px var(--glow-color);
+            0 0 10px #fff,
+            0 0 20px #fff,
+            0 0 30px #fff,
+            0 0 40px #fff;
     }
     100% {
         box-shadow: 
-            0 0 5px var(--glow-color),
-            0 0 10px var(--glow-color),
-            0 0 15px var(--glow-color),
-            0 0 20px var(--glow-color);
+            0 0 5px #fff,
+            0 0 10px #fff,
+            0 0 15px #fff,
+            0 0 20px #fff;
     }
 }
 
@@ -213,33 +208,12 @@ body.dark {
     50% { transform: translateY(-5px) rotate(2deg); }
 }
 
-@keyframes spinAndFloat {
-    0% { transform: translateY(0) rotate(0); }
-    25% { transform: translateY(-5px) rotate(90deg); }
-    50% { transform: translateY(0) rotate(180deg); }
-    75% { transform: translateY(5px) rotate(270deg); }
-    100% { transform: translateY(0) rotate(360deg); }
-}
-
-@keyframes rotateConic {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-@keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-}
-
 /* Hover Effects */
 .toggle-button:hover .toggle-circle {
-    animation: spinAndFloat 3s ease-in-out infinite;
-    background: linear-gradient(145deg, #ffffff, #f0f0f0);
-    background-size: 200% 200%;
-    animation: shimmer 3s linear infinite;
+    animation: floatEffect 2s ease-in-out infinite;
 }
 
-/* Dark Mode Specific */
+/* Dark Mode Specific Styles */
 body.dark .toggle-button {
     box-shadow: 
         5px 5px 15px rgba(0, 0, 0, 0.4),
@@ -252,7 +226,7 @@ body.dark .toggle-button:hover {
         -10px -10px 20px rgba(255, 255, 255, 0.1);
 }
 
-/* Responsive */
+/* Responsive Design */
 @media (max-width: 768px) {
     .toggle-button {
         width: 120px;
@@ -268,5 +242,177 @@ body.dark .toggle-button:hover {
     
     .toggle-button.active .toggle-circle {
         left: calc(100% - 54px);
+    }
+}
+
+.toggle {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    cursor: pointer;
+    border-radius: 50px;
+    background: linear-gradient(
+        45deg,
+        var(--gradient-1),
+        var(--gradient-2),
+        var(--gradient-3),
+        var(--gradient-4)
+    );
+    background-size: 300% 300%;
+    animation: gradientShift 8s ease infinite;
+    box-shadow: 
+        0 10px 20px rgba(0, 0, 0, 0.2),
+        0 6px 6px rgba(0, 0, 0, 0.1),
+        inset 0 0 20px rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toggle::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    animation: shimmer 2s linear infinite;
+}
+
+.orb {
+    position: absolute;
+    width: var(--orb-size);
+    height: var(--orb-size);
+    top: 50%;
+    left: 10px;
+    border-radius: 50%;
+    background: linear-gradient(
+        145deg,
+        #ffffff,
+        #f0f0f0
+    );
+    transform: translateY(-50%);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        0 0 20px rgba(255, 255, 255, 0.8),
+        0 0 40px rgba(255, 255, 255, 0.4),
+        inset 0 0 10px rgba(255, 255, 255, 1);
+    animation: floatOrb 3s ease-in-out infinite;
+}
+
+/* Active States */
+.toggle.active {
+    background: linear-gradient(
+        45deg,
+        var(--dark-gradient-1),
+        var(--dark-gradient-2)
+    );
+    background-size: 200% 200%;
+    animation: darkGradientShift 8s ease infinite;
+}
+
+.toggle.active .orb {
+    left: calc(100% - var(--orb-size) - 10px);
+    background: linear-gradient(145deg, #2a2a72, #009FFD);
+    box-shadow: 
+        0 0 30px var(--glow-primary),
+        0 0 60px var(--glow-secondary),
+        inset 0 0 15px rgba(255, 255, 255, 0.5);
+    animation: glowOrb 3s ease-in-out infinite;
+}
+
+/* Animations */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes darkGradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes floatOrb {
+    0%, 100% { 
+        transform: translateY(-50%) scale(1);
+        box-shadow: 
+            0 0 20px rgba(255, 255, 255, 0.8),
+            0 0 40px rgba(255, 255, 255, 0.4);
+    }
+    50% { 
+        transform: translateY(-50%) scale(1.05);
+        box-shadow: 
+            0 0 30px rgba(255, 255, 255, 0.9),
+            0 0 60px rgba(255, 255, 255, 0.5);
+    }
+}
+
+@keyframes glowOrb {
+    0%, 100% {
+        transform: translateY(-50%) scale(1);
+        box-shadow: 
+            0 0 30px var(--glow-primary),
+            0 0 60px var(--glow-secondary);
+    }
+    50% {
+        transform: translateY(-50%) scale(1.05);
+        box-shadow: 
+            0 0 40px var(--glow-primary),
+            0 0 80px var(--glow-secondary);
+    }
+}
+
+/* Hover Effects */
+.toggle:hover {
+    transform: scale(1.02);
+    box-shadow: 
+        0 15px 30px rgba(0, 0, 0, 0.3),
+        0 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+.toggle:hover .orb {
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 
+        0 0 40px rgba(255, 255, 255, 0.9),
+        0 0 80px rgba(255, 255, 255, 0.5);
+}
+
+/* Ripple Effect */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: rippleEffect 0.8s linear;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.7) 0%,
+        rgba(255, 255, 255, 0) 70%
+    );
+    pointer-events: none;
+}
+
+@keyframes rippleEffect {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    :root {
+        --toggle-width: 160px;
+        --toggle-height: 80px;
+        --orb-size: 64px;
     }
 }
