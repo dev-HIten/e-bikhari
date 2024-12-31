@@ -1,0 +1,106 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+    font-family: 'Courier New', monospace;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 90%;
+    max-width: 800px;
+    padding: 2rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.timer {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.stats {
+    font-size: 1.2rem;
+}
+
+.stats span {
+    margin-left: 1rem;
+}
+
+.text-display {
+    background-color: #2d2d2d;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    min-height: 150px;
+    line-height: 1.5;
+}
+
+.text-display span {
+    position: relative;
+}
+
+.text-display span.correct {
+    color: #4CAF50;
+}
+
+.text-display span.incorrect {
+    color: #f44336;
+}
+
+.text-display span.current {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+.text-input {
+    width: 100%;
+    height: 120px;
+    background-color: #2d2d2d;
+    border: none;
+    border-radius: 5px;
+    padding: 1rem;
+    color: #f0f0f0;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    resize: none;
+    margin-bottom: 1rem;
+}
+
+.text-input:focus {
+    outline: 2px solid #4CAF50;
+}
+
+.restart-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.restart-btn:hover {
+    background-color: #45a049;
+}
