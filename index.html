@@ -3,32 +3,19 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Project Portfolio</title>
+	<title>New Year Collection</title>
 	<style>
-		:root {
-			--primary-color: #2a2a2a;
-			--accent-color: #4a90e2;
-		}
-
 		body {
 			font-family: 'Inter', -apple-system, sans-serif;
 			background: #f5f5f5;
 			margin: 0;
 			padding: 2rem;
-			color: var(--primary-color);
+			color: #2a2a2a;
 		}
 
 		.container {
 			max-width: 1200px;
 			margin: 0 auto;
-		}
-
-		h1 {
-			font-size: 2.5rem;
-			margin-bottom: 2rem;
-			opacity: 0;
-			transform: translateY(20px);
-			animation: fadeInUp 0.6s ease forwards;
 		}
 
 		.projects-grid {
@@ -56,7 +43,7 @@
 		.project-title {
 			font-size: 1.25rem;
 			margin: 0 0 1rem 0;
-			color: var(--accent-color);
+			color: #4a90e2;
 		}
 
 		.project-description {
@@ -65,18 +52,11 @@
 			line-height: 1.5;
 		}
 
-		@keyframes fadeInUp {
-			to {
-				opacity: 1;
-				transform: translateY(0);
-			}
-		}
-
 		.project-link {
 			display: inline-block;
 			margin-top: 1rem;
 			padding: 0.5rem 1rem;
-			background-color: var(--accent-color);
+			background-color: #4a90e2;
 			color: white;
 			text-decoration: none;
 			border-radius: 6px;
@@ -87,61 +67,48 @@
 			background-color: #357abd;
 		}
 
-		.error-message {
-			grid-column: 1 / -1;
-			text-align: center;
-			padding: 2rem;
-			color: #dc3545;
-			background: #fff;
-			border-radius: 12px;
-			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		@keyframes fadeInUp {
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
 		}
 
+		@media screen and (max-width: 768px) {
+			body {
+				padding: 1rem;
+			}
+
+			.projects-grid {
+				grid-template-columns: 1fr;
+			}
+		}
 	</style>
 </head>
 <body>
 	<div class="container">
-		<h1>My Projects</h1>
-		<div class="projects-grid" id="projectsGrid">
-			<!-- Projects will be populated here via JavaScript -->
+		<h1>New Year Celebration Designs</h1>
+		<div class="projects-grid">
+			<div class="project-card">
+				<h2 class="project-title">Valorant Style New Year</h2>
+				<p class="project-description">A cyberpunk-inspired New Year celebration page with glitch effects, particle animations, and Valorant-style design elements.</p>
+				<a href="newyear/index.html" class="project-link">View Design</a>
+			</div>
+			<!-- Add more project cards here as you create more designs -->
 		</div>
 	</div>
 
 	<script>
 		// Function to load and display projects
-		async function loadProjects() {
-			// This is where you would typically fetch your projects
-			// For now, let's use sample data
-			const projects = [
-				{
-					title: "Project 1",
-					description: "Description of project 1"
-				},
-				{
-					title: "Project 2",
-					description: "Description of project 2"
-				},
-				// Add more projects as needed
-			];
-
-			const projectsGrid = document.getElementById('projectsGrid');
-			
-			projects.forEach((project, index) => {
-				const card = document.createElement('div');
-				card.className = 'project-card';
+		function initializeCards() {
+			const cards = document.querySelectorAll('.project-card');
+			cards.forEach((card, index) => {
 				card.style.animationDelay = `${index * 0.1}s`;
-				
-				card.innerHTML = `
-					<h2 class="project-title">${project.title}</h2>
-					<p class="project-description">${project.description}</p>
-				`;
-				
-				projectsGrid.appendChild(card);
 			});
 		}
 
-		// Load projects when the page loads
-		document.addEventListener('DOMContentLoaded', loadProjects);
+		// Initialize when the page loads
+		document.addEventListener('DOMContentLoaded', initializeCards);
 	</script>
 </body>
 </html>
