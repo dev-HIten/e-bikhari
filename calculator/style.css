@@ -36,46 +36,46 @@ body {
 
 .calculator {
     background: var(--calculator-bg);
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    padding: 20px;
-    width: 320px;
+    border-radius: 30px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    padding: 30px;
+    width: 480px;
     animation: slideIn 0.5s ease;
 }
 
 .display {
     background: var(--display-bg);
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
     text-align: right;
-    min-height: 100px;
+    min-height: 140px;
 }
 
 .previous-operand {
     color: var(--text-color);
     opacity: 0.7;
-    font-size: 1.2rem;
-    min-height: 24px;
+    font-size: 1.6rem;
+    min-height: 32px;
 }
 
 .current-operand {
     color: var(--text-color);
-    font-size: 2.5rem;
-    margin-top: 5px;
+    font-size: 3.5rem;
+    margin-top: 10px;
 }
 
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 15px;
 }
 
 button {
     border: none;
-    padding: 20px;
-    font-size: 1.2rem;
-    border-radius: 10px;
+    padding: 30px;
+    font-size: 1.8rem;
+    border-radius: 15px;
     cursor: pointer;
     color: var(--text-color);
     background: var(--button-bg);
