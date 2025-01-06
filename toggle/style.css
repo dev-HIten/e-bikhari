@@ -32,7 +32,7 @@ body {
     justify-content: center;
     align-items: center;
     background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
-    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body.dark {
@@ -50,7 +50,7 @@ body.dark {
 }
 
 .background-ripple.active {
-    transform: translate(-50%, -50%) scale(4);
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .toggle-wrapper {
