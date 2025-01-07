@@ -1,114 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>New Year Collection</title>
-	<style>
-		body {
-			font-family: 'Inter', -apple-system, sans-serif;
-			background: #f5f5f5;
-			margin: 0;
-			padding: 2rem;
-			color: #2a2a2a;
-		}
-
-		.container {
-			max-width: 1200px;
-			margin: 0 auto;
-		}
-
-		.projects-grid {
-			display: grid;
-			grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-			gap: 2rem;
-		}
-
-		.project-card {
-			background: white;
-			border-radius: 12px;
-			padding: 1.5rem;
-			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-			transition: transform 0.3s ease, box-shadow 0.3s ease;
-			opacity: 0;
-			transform: translateY(20px);
-			animation: fadeInUp 0.6s ease forwards;
-		}
-
-		.project-card:hover {
-			transform: translateY(-5px);
-			box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-		}
-
-		.project-title {
-			font-size: 1.25rem;
-			margin: 0 0 1rem 0;
-			color: #4a90e2;
-		}
-
-		.project-description {
-			color: #666;
-			font-size: 0.95rem;
-			line-height: 1.5;
-		}
-
-		.project-link {
-			display: inline-block;
-			margin-top: 1rem;
-			padding: 0.5rem 1rem;
-			background-color: #4a90e2;
-			color: white;
-			text-decoration: none;
-			border-radius: 6px;
-			transition: background-color 0.3s ease;
-		}
-
-		.project-link:hover {
-			background-color: #357abd;
-		}
-
-		@keyframes fadeInUp {
-			to {
-				opacity: 1;
-				transform: translateY(0);
-			}
-		}
-
-		@media screen and (max-width: 768px) {
-			body {
-				padding: 1rem;
-			}
-
-			.projects-grid {
-				grid-template-columns: 1fr;
-			}
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmark</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<div class="container">
-		<h1>New Year Celebration Designs</h1>
-		<div class="projects-grid">
-			<div class="project-card">
-				<h2 class="project-title">Valorant Style New Year</h2>
-				<p class="project-description">A cyberpunk-inspired New Year celebration page with glitch effects, particle animations, and Valorant-style design elements.</p>
-				<a href="newyear/index.html" class="project-link">View Design</a>
-			</div>
-			<!-- Add more project cards here as you create more designs -->
-		</div>
-	</div>
-
-	<script>
-		// Function to load and display projects
-		function initializeCards() {
-			const cards = document.querySelectorAll('.project-card');
-			cards.forEach((card, index) => {
-				card.style.animationDelay = `${index * 0.1}s`;
-			});
-		}
-
-		// Initialize when the page loads
-		document.addEventListener('DOMContentLoaded', initializeCards);
-	</script>
+    <h1>Bookmark App</h1>
+    <div class="container">
+        <div class="links">
+            <a href="calculator/index.html">Calculator</a>
+            <a href="maths/index.html">Maths</a>
+            <a href="newyear/index.html">New Year</a>
+            <a href="sigma toggle/index.html">Sigma Toggle</a>
+            <a href="ttt/index.html">TTT</a>
+            <a href="type/index.html">Type</a>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
