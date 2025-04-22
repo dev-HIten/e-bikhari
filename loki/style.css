@@ -1,0 +1,143 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+    background-color: #181818; /* Slightly lighter dark background */
+    color: #f5f5f5; /* Light gray text */
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 30px; /* Increased padding for better spacing */
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px; /* Increased gap */
+    width: 95%; /* Slightly wider on larger screens */
+    max-width: 700px; /* Increased max width */
+}
+
+.main-content {
+    width: 100%;
+    border-radius: 15px; /* Rounded corners for main content */
+    overflow: hidden; /* Ensure image/video respects rounded corners */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Deeper shadow */
+}
+
+.video-container {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    background-color: #222; /* Fallback color while loading */
+}
+
+#mainImage {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out; /* Smoother transition */
+}
+
+video {
+    display: none;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Adjust as needed */
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: inherit; /* Inherit rounded corners from container */
+}
+
+.emoji-buttons {
+    display: flex;
+    gap: 15px; /* Increased gap */
+    justify-content: center;
+    width: 100%;
+    padding: 15px 0; /* Add some vertical padding */
+}
+
+button {
+    background-color: #333;
+    color: #f5f5f5;
+    border: none;
+    padding: 12px; /* Slightly increased padding */
+    border-radius: 10px; /* Curved buttons */
+    cursor: pointer;
+    font-size: 2.2em; /* Slightly larger emojis */
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out; /* Smoother hover and press */
+    width: auto;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle button shadow */
+}
+
+button:hover {
+    background-color: #555;
+    transform: scale(1.05); /* Slight scale on hover */
+}
+
+button:active {
+    transform: scale(0.95); /* Slight scale down on press */
+}
+
+#shitRainContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.shit-emoji {
+    font-size: 2.5em; /* Slightly larger emojis */
+    position: absolute;
+    animation: fall 2s linear;
+    animation-fill-mode: forwards;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add a subtle shadow */
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-30px) translateX(var(--random-x)); /* Start higher */
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) translateX(var(--random-x));
+        opacity: 0;
+    }
+}
+
+/* Mobile Friendly Design */
+@media (max-width: 768px) {
+    .container {
+        width: 98%; /* Take up more width on small screens */
+        padding: 20px;
+    }
+
+    .emoji-buttons {
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 10px 0;
+    }
+
+    button {
+        flex: 1 1 auto;
+        max-width: none;
+        font-size: 2em; /* Adjust emoji size for smaller screens */
+        padding: 10px;
+        border-radius: 8px;
+    }
+}
