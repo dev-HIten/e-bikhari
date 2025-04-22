@@ -141,3 +141,28 @@ button:active {
         border-radius: 8px;
     }
 }
+
+/* iPhone 15 Optimization */
+@media (max-width: 1170px) and (max-height: 2532px) {
+    body {
+        padding: 20px; /* Reduce padding for iPhone screen */
+    }
+
+    .container {
+        width: 90%; /* Slightly smaller container width for better fit */
+        padding: 10px;
+    }
+
+    .emoji-buttons {
+        gap: 12px; /* Adjust gap for buttons */
+    }
+
+    button {
+        font-size: 2em; /* Adjust emoji size for iPhone */
+        padding: 10px;
+    }
+
+    .main-content {
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Deeper shadow for better contrast */
+    }
+}
