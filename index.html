@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bookmark</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>e Bikhari</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h1>Bookmark App</h1>
-    <div class="container">
-        <div class="links">
-            <a href="calculator/index.html">Calculator</a>
-            <a href="maths/index.html">Maths</a>
-            <a href="newyear/index.html">New Year</a>
-            <a href="toggle/index.html">Toggle</a>
-            <a href="ttt/index.html">TTT</a>
-            <a href="type/index.html">Type</a>
-        </div>
+  <div class="container">
+    <h1>e Bikhari</h1>
+    <p class="tagline">A modern approach to digital begging.</p>
+
+    <div id="donation-section">
+      <img src="upi-qr.png" alt="UPI QR Code" class="qr" />
+      <p class="upi-id">UPI ID: ebikhari@upi</p>
+      <button onclick="showThankYou()">I've Donated</button>
     </div>
-    <script src="script.js"></script>
+
+    <div id="thank-you-section" class="hidden">
+      <h2>🙏 Thank You!</h2>
+      <p>Your donation is appreciated more than words can say.</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

@@ -1,79 +1,59 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-    background: #1a1a1a;
-    color: #ffffff;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
-}
-
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
-    background: linear-gradient(45deg, #00ffff, #ff00ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-align: center;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(to right, #e0e0e0, #fafafa);
+  color: #333;
 }
 
 .container {
-    width: 100%;
-    max-width: 800px;
+  max-width: 480px;
+  margin: 80px auto;
+  padding: 20px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  text-align: center;
 }
 
-.links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    padding: 1rem;
+h1 {
+  font-size: 2.5rem;
+  color: #d32f2f;
+  margin-bottom: 10px;
 }
 
-.links a {
-    background: rgba(255, 255, 255, 0.05);
-    color: #ffffff;
-    text-decoration: none;
-    padding: 1rem 1.5rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
+.tagline {
+  font-style: italic;
+  color: #777;
+  margin-bottom: 30px;
 }
 
-.links a:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    border-color: rgba(255, 255, 255, 0.2);
+.qr {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 20px;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.upi-id {
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
-.links a {
-    animation: fadeIn 0.5s ease forwards;
-    opacity: 0;
+button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
-.links a:nth-child(1) { animation-delay: 0.1s; }
-.links a:nth-child(2) { animation-delay: 0.2s; }
-.links a:nth-child(3) { animation-delay: 0.3s; }
-.links a:nth-child(4) { animation-delay: 0.4s; }
-.links a:nth-child(5) { animation-delay: 0.5s; }
-.links a:nth-child(6) { animation-delay: 0.6s; }
+button:hover {
+  background-color: #b71c1c;
+}
+
+.hidden {
+  display: none;
+}
