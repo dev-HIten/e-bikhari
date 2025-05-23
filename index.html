@@ -2,27 +2,230 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>e Bikhari</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>e Bikhari – Digital Beggar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #8e24aa;
+      --background: #121212;
+      --surface: #1e1e1e;
+      --text: #f4f4f4;
+      --accent: #d1a9f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), #6a1b9a);
+      padding: 4rem 1rem;
+      text-align: center;
+      color: white;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    main {
+      max-width: 800px;
+      margin: auto;
+      padding: 2rem 1rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+    }
+
+    .faq-item {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .faq-question:hover {
+      color: var(--accent);
+    }
+
+    .plus {
+      font-size: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.4s ease;
+      color: #bbb;
+      margin-top: 0.5rem;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .faq-item.active .plus {
+      transform: rotate(45deg);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: #1a1a1a;
+      color: #777;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+    }
+
+    .section {
+      margin-top: 4rem;
+    }
+
+    .donate {
+      background: var(--surface);
+      padding: 2rem;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .donate h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+
+    .donate p {
+      margin-bottom: 1.5rem;
+      color: #ccc;
+    }
+
+    .donate img {
+      width: 180px;
+      height: 180px;
+      border-radius: 12px;
+      border: 2px solid var(--accent);
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
+  <header>
     <h1>e Bikhari</h1>
-    <p class="tagline">A modern approach to digital begging.</p>
+    <p>Where your kindness becomes our luxury</p>
+  </header>
 
-    <div id="donation-section">
-      <img src="upi-qr.png" alt="UPI QR Code" class="qr" />
-      <p class="upi-id">UPI ID: ebikhari@upi</p>
-      <button onclick="showThankYou()">I've Donated</button>
-    </div>
+  <main>
+    <section class="section donate">
+      <h3>Support the Cause</h3>
+      <p>Scan the QR below to donate via UPI</p>
+      <img src="https://via.placeholder.com/180?text=UPI+QR" alt="UPI QR Code" />
+    </section>
 
-    <div id="thank-you-section" class="hidden">
-      <h2>🙏 Thank You!</h2>
-      <p>Your donation is appreciated more than words can say.</p>
-    </div>
-  </div>
+    <section class="section">
+      <h2>Frequently Asked Questions</h2>
 
-  <script src="script.js"></script>
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>How can I contact you?</span>
+          <span class="plus">+</span>
+        </div>
+        <div class="faq-answer">
+          Email us at <strong>contact@ebikhari.com</strong> or DM us on Instagram @ebikhari.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Do you ship anything?</span>
+          <span class="plus">+</span>
+        </div>
+        <div class="faq-answer">
+          No, it's all digital blessings. You give, we glow.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>What are your terms and conditions?</span>
+          <span class="plus">+</span>
+        </div>
+        <div class="faq-answer">
+          By donating, you support our right to be stylish and broke at the same time.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Can I cancel or get a refund?</span>
+          <span class="plus">+</span>
+        </div>
+        <div class="faq-answer">
+          Sorry, no refunds. All funds go straight into instant noodles and dream building.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Is my data safe?</span>
+          <span class="plus">+</span>
+        </div>
+        <div class="faq-answer">
+          We don’t collect any data. We barely collect money.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 e Bikhari – Made with dignity and dark mode.
+  </footer>
+
+  <script>
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        item.classList.toggle('active');
+      });
+    });
+  </script>
 </body>
 </html>
