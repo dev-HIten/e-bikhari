@@ -1,42 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nigga scale</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Brightness Analyzer</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.14.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>✨ Nigga scale</h1>
-    <p class="subtitle">Upload a photo and get your nigga score</p>
 
-    <label class="upload-btn">
-      <input type="file" id="upload" accept="image/*" hidden>
-      📷 Choose Image
-    </label>
+    <div class="card-container">
+        <h1 class="app-title">Image Brightness Analyzer</h1>
+        <p class="app-subtitle">Upload a photo to see the average brightness of the detected face.</p>
+        
+        <input type="file" id="upload" accept="image/*" class="file-input">
 
-    <div id="result-card" class="card hidden">
-      <p id="result"></p>
-
-      <div class="image-section">
-        <div>
-          <h3>Cropped Face</h3>
-          <img id="facePreview" />
+        <div class="image-display-area">
+            <div class="image-box">
+                <img id="originalPreview" src="" alt="Original Image" class="image-preview hidden">
+                <p class="image-label">Original</p>
+            </div>
+            <div class="image-box">
+                <img id="facePreview" src="" alt="Detected Face" class="image-preview hidden">
+                <p class="image-label">Detected Face</p>
+            </div>
         </div>
-
-        <div>
-          <h3>Original Image</h3>
-          <img id="originalPreview" />
+        
+        <div id="result-box" class="result-box hidden">
+            <p id="result-text" class="result-message"></p>
         </div>
-      </div>
     </div>
-  </div>
+    
+    <canvas id="canvas"></canvas>
 
-  <canvas id="canvas"></canvas>
+    <script src="script.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
-  <script src="script.js"></script>
 </body>
 </html>
