@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nigga scale</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>✨ Nigga scale</h1>
+    <p class="subtitle">Upload a photo and get your nigga score</p>
+
+    <label class="upload-btn">
+      <input type="file" id="upload" accept="image/*" hidden>
+      📷 Choose Image
+    </label>
+
+    <div id="result-card" class="card hidden">
+      <p id="result"></p>
+
+      <div class="image-section">
+        <div>
+          <h3>Cropped Face</h3>
+          <img id="facePreview" />
+        </div>
+
+        <div>
+          <h3>Original Image</h3>
+          <img id="originalPreview" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="canvas"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
+  <script src="script.js"></script>
+</body>
+</html>
