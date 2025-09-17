@@ -54,7 +54,7 @@ upload.addEventListener("change", async (e) => {
       const brightness = total / (faceData.data.length / 4);
       const score = Math.round(((brightness / 255) * 9) + 1);
 
-      result.textContent = `Skin Shade Score: ${score}/10`;
+      result.textContent = `Nigga Score: ${10-score}/10`;
 
       // Show cropped face
       const faceCanvas = document.createElement("canvas");
