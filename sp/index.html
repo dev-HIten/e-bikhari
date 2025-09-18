@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Secure Password Generator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="card" role="main">
+    <header class="card-header">
+      <h1>Secure Password</h1>
+      <p class="sub">Live generation. Always match selected rules. Minimal, dark UI.</p>
+    </header>
+
+    <section class="output-row">
+      <input id="password" class="password" type="text" readonly aria-label="Generated password" />
+      <button id="copyBtn" class="copy-btn" aria-label="Copy password">
+        <span id="copyIcon">📋</span>
+      </button>
+    </section>
+    <div id="copyMsg" class="copy-msg" aria-live="polite"></div>
+
+    <section class="controls">
+      <label class="row">
+        <span>Length</span>
+        <div class="range-wrap">
+          <input id="length" type="range" min="8" max="64" value="12" />
+          <output id="lengthValue">12</output>
+        </div>
+      </label>
+
+      <div class="opts">
+        <label class="opt"><input id="uppercase" type="checkbox" checked /> Uppercase</label>
+        <label class="opt"><input id="numbers" type="checkbox" checked /> Numbers</label>
+        <label class="opt"><input id="symbols" type="checkbox" checked /> Symbols</label>
+        <label class="opt"><input id="excludeAmbiguous" type="checkbox" /> Exclude ambiguous (0 O 1 l I)</label>
+      </div>
+    </section>
+
+    <section class="strength-row" aria-hidden="false">
+      <div class="strength-track">
+        <div id="strengthFill" class="strength-fill"></div>
+      </div>
+      <div class="strength-meta">
+        <div id="strengthLabel" class="strength-label">Strength</div>
+        <div id="crackTime" class="crack-time">Crack time: —</div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <small>No data leaves your browser · Uses secure random source</small>
+      <div class="credit">Created by Hiten Bhadra</div>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
