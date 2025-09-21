@@ -1,194 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>e Bikhari – The Digital Freeloaders</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Bikhari Projects</title>
   <style>
-    :root {
-      --primary: #ffffff;
-      --background: #000000;
-      --surface: #111111;
-      --text: #f0f0f0;
-      --accent: #999999;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--background);
-      color: var(--text);
-      line-height: 1.7;
-    }
-
-    header {
-      padding: 4rem 1rem;
-      text-align: center;
-      background: var(--background);
-      color: var(--primary);
-    }
-
-    header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-    }
-
-    header p {
-      font-size: 1.2rem;
-      color: var(--accent);
-    }
-
-    main {
-      max-width: 800px;
-      margin: auto;
-      padding: 2rem 1rem;
-    }
-
-    h2 {
-      font-size: 2rem;
-      color: var(--primary);
-      margin-bottom: 2rem;
-      font-family: 'Playfair Display', serif;
-      text-align: center;
-    }
-
-    .faq-item {
-      background: var(--surface);
-      border-radius: 12px;
-      padding: 1.2rem 1.5rem;
-      margin-bottom: 1rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
-    }
-
-    .faq-question {
+      background-color: #0d0d0d;
+      color: #f5f5f5;
+      font-family: "Inter", Arial, sans-serif;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      cursor: pointer;
-      font-weight: 600;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #ffffff;
+      letter-spacing: 1px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      margin: 1rem 0;
+    }
+
+    a {
+      display: block;
+      padding: 1rem;
+      background: #1a1a1a;
+      border-radius: 12px;
+      color: #f5f5f5;
+      text-decoration: none;
       font-size: 1.1rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
     }
 
-    .faq-question:hover {
-      color: var(--accent);
-    }
-
-    .plus {
-      font-size: 1.5rem;
-      transition: transform 0.3s ease;
-    }
-
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(-10px);
-      transition: all 0.4s ease;
-      color: #ccc;
-      margin-top: 0.5rem;
-    }
-
-    .faq-item.active .faq-answer {
-      max-height: 500px;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .faq-item.active .plus {
-      transform: rotate(45deg);
+    a:hover {
+      background: #333333;
+      color: #00d4ff;
+      transform: translateY(-2px);
     }
 
     footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      background: #000;
-      color: #666;
-      margin-top: 3rem;
-      font-size: 0.9rem;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>e Bikhari</h1>
-    <p>The classiest way to ask for money online</p>
-  </header>
-
-  <main>
-    <section>
-      <h2>Frequently Avoided Questions</h2>
-
-      <div class="faq-item">
-        <div class="faq-question">
-          <span>How do I reach you if I regret donating?</span>
-          <span class="plus">+</span>
-        </div>
-        <div class="faq-answer">
-          Regret fast, contact faster: <strong>greatghostgraver@gmail.com</strong> or call 7012716514. We might respond... eventually.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">
-          <span>Do you ship blessings globally?</span>
-          <span class="plus">+</span>
-        </div>
-        <div class="faq-answer">
-          Absolutely not. We barely ship vibes. It's digital here, baby.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">
-          <span>What’s your Terms and Conditions?</span>
-          <span class="plus">+</span>
-        </div>
-        <div class="faq-answer">
-          You donate, we survive. Terms accepted automatically by scrolling down.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">
-          <span>Refunds or just regret?</span>
-          <span class="plus">+</span>
-        </div>
-        <div class="faq-answer">
-          No refunds. But hey, you'll earn karma. Probably.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">
-          <span>Is my data as safe as my wallet?</span>
-          <span class="plus">+</span>
-        </div>
-        <div class="faq-answer">
-          We collect nothing. Not even enough money. You're safe, and so are we.
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    © 2025 e Bikhari – Proudly begging with style.
-  </footer>
-
-  <script>
-    document.querySelectorAll('.faq-question').forEach(q => {
-      q.addEventListener('click', () => {
-        const item = q.parentElement;
-        item.classList.toggle('active');
-      });
-    });
-  </script>
+  <div class="container">
+    <h1>E-Bikhari Projects</h1>
+    <ul>
+      <li><a href="color/index.html">color</a></li>
+      <li><a href="et/index.html">et</a></li>
+      <li><a href="loki/index.html">loki</a></li>
+      <li><a href="maths/index.html">maths</a></li>
+      <li><a href="sp/index.html">sp</a></li>
+      <li><a href="ttt/index.html">ttt</a></li>
+      <li><a href="type/index.html">type</a></li>
+      <li><a href="nd/index.html">nd</a></li>
+    </ul>
+    <footer>Made by Hiten Bhadra</footer>
+  </div>
 </body>
 </html>
