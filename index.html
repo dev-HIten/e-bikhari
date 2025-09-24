@@ -4,11 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iamhitenbhadra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #18141a;
+      --card-bg: #231824;
+      --accent: #ff69b4;
+      --accent-gradient: linear-gradient(90deg, #ff69b4 0%, #e055a0 100%);
+      --text: #f5f5f7;
+      --muted: #eab1d2;
+      --radius: 20px;
+      --shadow: 0 4px 24px 0 rgba(255,105,180,0.13);
+    }
+
     body {
-      background-color: #0d0d0d;
-      color: #f5f5f5;
-      font-family: "Inter", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', Arial, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -17,16 +31,36 @@
     }
 
     .container {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       text-align: center;
-      max-width: 500px;
-      width: 90%;
+      max-width: 420px;
+      width: 92%;
+      padding: 2.5rem 1.5rem 2rem 1.5rem;
+      border: 1px solid #3a223a;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 5px;
+      background: var(--accent-gradient);
+      border-radius: var(--radius) var(--radius) 0 0;
     }
 
     h1 {
-      font-size: 2rem;
-      margin-bottom: 2rem;
-      color: #ffffff;
-      letter-spacing: 1px;
+      font-size: 2.1rem;
+      margin-bottom: 2.2rem;
+      color: var(--text);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     ul {
@@ -36,48 +70,156 @@
     }
 
     li {
-      margin: 1rem 0;
+      margin: 1.1rem 0;
     }
 
     a {
-      display: block;
-      padding: 1rem;
-      background: #1a1a1a;
-      border-radius: 12px;
-      color: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7em;
+      padding: 1.1rem 0;
+      background: #2a1b2a;
+      border-radius: 14px;
+      color: var(--text);
       text-decoration: none;
-      font-size: 1.1rem;
+      font-size: 1.13rem;
       font-weight: 500;
-      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px 0 rgba(255,105,180,0.07);
+      transition: 
+        background 0.2s cubic-bezier(.4,0,.2,1),
+        color 0.2s cubic-bezier(.4,0,.2,1),
+        transform 0.18s cubic-bezier(.4,0,.2,1);
+      border: 1.5px solid transparent;
+      position: relative;
     }
 
-    a:hover {
-      background: #333333;
-      color: #00d4ff;
-      transform: translateY(-2px);
+    a::after {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-right: 2px solid var(--accent);
+      border-bottom: 2px solid var(--accent);
+      transform: rotate(-45deg);
+      margin-left: 0.5em;
+      transition: border-color 0.2s;
+    }
+
+    a:hover, a:focus {
+      background: var(--accent-gradient);
+      color: #fff;
+      transform: translateY(-2px) scale(1.03);
+      border-color: var(--accent);
+      outline: none;
+    }
+    a:hover::after, a:focus::after {
+      border-color: #fff;
     }
 
     footer {
-      margin-top: 2rem;
-      font-size: 0.8rem;
-      color: #aaa;
+      margin-top: 2.5rem;
+      font-size: 0.98rem;
+      color: var(--muted);
+      letter-spacing: 0.1px;
+      opacity: 0.92;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      animation: fadeInFooter 1.2s cubic-bezier(.4,2,.6,1);
+    }
+
+    .donate-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 8px;
+      padding: 12px 34px;
+      background: var(--accent-gradient);
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.13rem;
+      border: none;
+      border-radius: 30px;
+      text-decoration: none;
+      box-shadow: 0 2px 16px 0 rgba(255,105,180,0.18);
+      cursor: pointer;
+      transition: background 0.22s, transform 0.18s, box-shadow 0.22s;
+      will-change: transform;
+      border: 1.5px solid rgba(255,255,255,0.10);
+      backdrop-filter: blur(8px);
+    }
+
+    .donate-btn span {
+      font-size: 1.3em;
+      animation: heartBeat 1.8s infinite;
+      display: inline-block;
+    }
+
+    .donate-btn:hover, .donate-btn:focus {
+      background: linear-gradient(90deg, #e055a0 60%, #ff69b4 100%);
+      transform: scale(1.09) translateY(-2px);
+      box-shadow: 0 8px 32px 0 rgba(255,105,180,0.25);
+      text-decoration: none;
+    }
+
+    @keyframes heartBeat {
+      0%, 100% { transform: scale(1);}
+      10% { transform: scale(1.15);}
+      20% { transform: scale(1);}
+      30% { transform: scale(1.12);}
+      40% { transform: scale(1);}
+    }
+
+    @keyframes fadeInFooter {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        padding: 1.5rem 0.5rem 1.2rem 0.5rem;
+        max-width: 98vw;
+      }
+      h1 {
+        font-size: 1.4rem;
+      }
+      a {
+        font-size: 1rem;
+        padding: 0.9rem 0;
+      }
+      .donate-btn {
+        padding: 10px 18px;
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Hiten's Projects</h1>
+    <h1>💖 Hiten's Projects</h1>
     <ul>
-      <li><a href="color/index.html">color</a></li>
-      <li><a href="et/index.html">et</a></li>
-      <li><a href="loki/index.html">loki</a></li>
-      <li><a href="maths/index.html">maths</a></li>
-      <li><a href="sp/index.html">sp</a></li>
-      <li><a href="ttt/index.html">ttt</a></li>
-      <li><a href="type/index.html">type</a></li>
-      <li><a href="nd/index.html">nd</a></li>
+
+
+      <li><a href="loki/index.html">🦊 loki</a></li>
+
+      <li><a href="sp/index.html">🌀 sp</a></li>
+
+      <li><a href="nd/index.html">🔢 nd</a></li>
+      <li><a href="pinkovie/index.html">🎬 pinkovie</a></li>
     </ul>
-    <footer>Made by Hiten Bhadra</footer>
+    <footer>
+      <span>by <span class="pink-accent">Hiten Bhadra</span></span>
+      <a 
+        href="https://razorpay.me/@hitenbhadra" 
+        class="donate-btn" 
+        target="_blank" 
+        rel="noopener"
+        title="Donate">
+        <span>💖</span>
+      </a>
+    </footer>
   </div>
 </body>
 </html>
