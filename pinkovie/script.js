@@ -21,6 +21,15 @@ async function searchMovie() {
       }
     );
 
+    if (!res.ok) {
+      if (res.status === 404) {
+        resultDiv.innerHTML = "<p>🚫 Error 404: Not Found.</p>";
+      } else {
+        resultDiv.innerHTML = `<p>⚠️ Error ${res.status}: ${res.statusText}</p>`;
+      }
+      return;
+    }
+
     const data = await res.json();
 
     if (data.results && data.results.length > 0) {
@@ -60,6 +69,6 @@ async function searchMovie() {
     }
   } catch (error) {
     console.error(error);
-    resultDiv.innerHTML = "<p>⚠️ Error fetching data.</p>";
+    resultDiv.innerHTML = "<p>🚫 Error 404: API not responding.</p>";
   }
 }
