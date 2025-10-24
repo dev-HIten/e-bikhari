@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Referral Hub | Tools & Support</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --primary-color: #007bff; /* Bright Blue */
+            --secondary-color: #6c757d; /* Gray */
+            --background-color: #f8f9fa; /* Light Gray Background */
+            --card-background: #ffffff;
+            --text-color: #343a40;
+            --success-color: #28a745;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 40px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+        }
+
+        /* --- Card Styles --- */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: var(--card-background);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .card-description {
+            font-size: 0.9em;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        /* --- Button Styles --- */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: auto; /* Push button to the bottom */
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            margin-top: 15px;
+        }
+
+        .btn-success:hover {
+            background-color: #1e7e34;
+        }
+
+        /* --- Community Share Specifics --- */
+        .community-card {
+            cursor: pointer;
+            border: 2px dashed #ccc;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+        }
+
+        .community-card:hover {
+            border-color: var(--primary-color);
+        }
+
+        .community-card h3 {
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        /* --- Support Section --- */
+        .support-card {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .support-card .btn {
+            min-width: 200px;
+        }
+
+        /* --- JavaScript Alert Styling (for link copy confirmation) --- */
+        .alert {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: var(--success-color);
+            color: #fff;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.5s, visibility 0s 0.5s;
+        }
+
+        .alert.show {
+            visibility: visible;
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>The Referral Hub</h1>
+        <p>Your one-stop shop for powerful tools and apps I personally use, plus a space to support the channel!</p>
+    </header>
+
+    <div class="container">
+
+        <section id="my-links">
+            <h2>🥇 My Recommended Tools & Apps</h2>
+            <p style="text-align: center; margin-bottom: 40px; color: var(--secondary-color);">Use these links to get a bonus when you sign up. It's a great way to support the channel at no extra cost to you!</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3 class="card-title">Perplexity Pro</h3>
+                    <p class="card-description">The AI search engine I use every day for deep research and information synthesis.</p>
+                    <a href="YOUR_PERPLEXITY_REFERRAL_LINK" target="_blank" class="btn btn-primary">Join Now & Get Free Credits!</a>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Groww</h3>
+                    <p class="card-description">My preferred platform for mutual funds and stock market investing. Simple and intuitive.</p>
+                    <a href="YOUR_GROWW_REFERRAL_LINK" target="_blank" class="btn btn-primary">Start Investing Today</a>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Upstox</h3>
+                    <p class="card-description">A reliable trading platform for active investors. Get a bonus when you open an account.</p>
+                    <a href="YOUR_UPSTOX_REFERRAL_LINK" target="_blank" class="btn btn-primary">Open a Demat Account</a>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Slice</h3>
+                    <p class="card-description">Get rewards and flexible payments on your day-to-day spending with this card.</p>
+                    <a href="YOUR_SLICE_REFERRAL_LINK" target="_blank" class="btn btn-primary">Get ₹300 Signup Bonus</a>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Dhan</h3>
+                    <p class="card-description">Designed for traders and super-investors with advanced features and analytics.</p>
+                    <a href="YOUR_DHAN_REFERRAL_LINK" target="_blank" class="btn btn-primary">Explore Advanced Trading</a>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Airtel Payment Banks</h3>
+                    <p class="card-description">My go-to for secure, quick digital payments, banking, and recharges.</p>
+                    <a href="YOUR_AIRTEL_PAYMENTS_REFERRAL_LINK" target="_blank" class="btn btn-primary">Sign Up Now</a>
+                </div>
+                </div>
+        </section>
+
+        ---
+
+        <section id="community-share">
+            <h2>🤝 Community Link Exchange</h2>
+            <p style="text-align: center; margin-bottom: 40px; color: var(--secondary-color);">Share your *own* referral link so others in the community can use it in *their* video descriptions and earn. **Click the 'Copy Link' button to grab their link!** (This section simulates a submission and copy feature.)</p>
+
+            <div class="card-grid" id="community-grid">
+                <div class="card">
+                    <h3 class="card-title">Groww (Community)</h3>
+                    <p class="card-description">Shared by **@JaneDoe**. Get ₹100!</p>
+                    <button class="btn btn-success" onclick="copyLink('https://community-link.com/janedoe-groww', 'Groww link')">Copy Link</button>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Upstox (Community)</h3>
+                    <p class="card-description">Shared by **@TechGuru**. Free Demat account!</p>
+                    <button class="btn btn-success" onclick="copyLink('https://community-link.com/techguru-upstox', 'Upstox link')">Copy Link</button>
+                </div>
+
+                <div class="card community-card" onclick="alert('In a real website, this would open a form for submission. You would review and approve the link, and then it would appear here as a new card!')">
+                    <h3>+ Submit Your Link</h3>
+                    <p>Click here to share *your* referral link with the community!</p>
+                </div>
+            </div>
+        </section>
+
+        ---
+
+        <section id="support">
+            <h2>❤️ Support The Channel</h2>
+            <p style="text-align: center; margin-bottom: 40px; color: var(--secondary-color);">If you found my content valuable, you can support the channel directly. Every contribution helps me create more and better content!</p>
+
+            <div class="card-grid">
+                <div class="card support-card">
+                    <h3 class="card-title">Direct Tip / UPI</h3>
+                    <p class="card-description">Send a tip via UPI or another direct method.</p>
+                    <a href="YOUR_UPI_DEEPLINK_OR_PAYPAL_LINK" target="_blank" class="btn btn-primary">Send a Tip</a>
+                </div>
+
+                <div class="card support-card">
+                    <h3 class="card-title">Join a Membership</h3>
+                    <p class="card-description">Unlock exclusive perks by joining the community on YouTube/Patreon.</p>
+                    <a href="YOUR_MEMBERSHIP_LINK" target="_blank" class="btn btn-primary">Join My Community</a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <div id="copyAlert" class="alert"></div>
+
+    <script>
+        /* --- JAVASCRIPT FUNCTIONS --- */
+
+        /**
+         * Function to copy a link to the clipboard and show a confirmation alert.
+         * @param {string} link - The actual referral link to be copied.
+         * @param {string} name - The name of the link (e.g., "Groww link").
+         */
+        function copyLink(link, name) {
+            // Create a temporary textarea element to hold the link
+            const tempInput = document.createElement('textarea');
+            tempInput.value = link;
+            document.body.appendChild(tempInput);
+
+            // Select the text and copy it
+            tempInput.select();
+            document.execCommand('copy');
+
+            // Remove the temporary element
+            document.body.removeChild(tempInput);
+
+            // Show confirmation alert
+            const alertBox = document.getElementById('copyAlert');
+            alertBox.textContent = `${name} copied to clipboard!`;
+            alertBox.classList.add('show');
+
+            // Hide the alert after 3 seconds
+            setTimeout(() => {
+                alertBox.classList.remove('show');
+            }, 3000);
+        }
+
+        // NOTE: The Community Share section is *simulated* here. 
+        // A full submission system requires server-side code (like PHP, Python, or Node.js) and a database.
+        // The `onclick` event on the placeholder card is a simple browser alert.
+    </script>
+</body>
+</html>
