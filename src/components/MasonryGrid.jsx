@@ -76,47 +76,47 @@ const MasonryGrid = ({ title, queryKey, queryFn }) => {
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             whileHover={{ y: -10, scale: 1.05 }}
-                            transition={{ duration: 0.4, type: "spring", stiffness: 300, damping: 20 }}
+                            transition={{ duration: 0.4, type: "spring", stiffness: 300, damping: 30 }}
                             viewport={{ once: true, margin: "50px" }}
-                            className="group cursor-pointer flex flex-col gap-3 relative z-0 hover:z-10 will-change-transform"
+                            className="group cursor-pointer flex flex-col gap-3 relative z-0 hover:z-20 will-change-transform" // Increased z-index on hover
                             onClick={() => navigate(`/watch/${item.media_type || 'movie'}/${item.id}`)}
                         >
                             {/* Card Image Container */}
-                            <div className="relative aspect-[2/3] rounded-2xl overflow-hidden bg-white/5 shadow-lg group-hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] transition-all duration-300 ring-0 group-hover:ring-2 ring-white/20">
+                            <div className="relative aspect-[2/3] rounded-xl overflow-hidden bg-white/5 shadow-[0_8px_30px_rgba(0,0,0,0.12)] group-hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] transition-all duration-500 ring-1 ring-white/10 group-hover:ring-white/30">
                                 <motion.img
                                     initial={{ opacity: 0, filter: "blur(10px)" }}
                                     whileInView={{ opacity: 1, filter: "blur(0px)" }}
                                     transition={{ duration: 0.5 }}
                                     src={`${IMAGE_BASE}${item.poster_path}`}
                                     alt={item.title}
-                                    className="w-full h-full object-cover transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-110"
+                                    className="w-full h-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-105" // Smoother scale
                                     loading="lazy"
                                 />
 
-                                {/* Premium Gradient Overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
+                                {/* Premium Gradient Overlay (Subtle) */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-40 group-hover:opacity-60 transition-opacity duration-500" />
 
-                                {/* Sequenced Shine Effect */}
-                                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20 overflow-hidden">
-                                    <div className="absolute top-0 left-[-150%] w-[100%] h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-25deg] group-hover:animate-[shine_0.8s_ease-out_0.2s_forwards]" />
+                                {/* Cinematic Shine Effect (Refined) */}
+                                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-20 overflow-hidden">
+                                     <div className="absolute top-0 left-[-100%] w-[50%] h-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-[-25deg] group-hover:animate-[shine_1s_ease-out_forwards]" />
                                 </div>
 
-                                {/* Rating Badge */}
-                                <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2 py-1 rounded-md flex items-center gap-1 border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-[-10px] group-hover:translate-y-0">
+                                {/* Rating Badge (Glass) */}
+                                <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2 py-1 rounded-lg flex items-center gap-1 border border-white/10 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-[-10px] group-hover:translate-y-0 shadow-lg">
                                     <span className="text-[#f5c518] text-xs">★</span>
-                                    <span className="text-white text-xs font-bold">{item.vote_average?.toFixed(1)}</span>
+                                    <span className="text-white text-xs font-bold font-display">{item.vote_average?.toFixed(1)}</span>
                                 </div>
                             </div>
 
                             {/* Clean Stats */}
                             <div className="px-1 space-y-1">
-                                <h3 className="font-bold text-base leading-snug text-white/90 group-hover:text-white transition-colors line-clamp-1">
+                                <h3 className="font-bold text-base leading-snug text-white/90 group-hover:text-white transition-colors duration-300 line-clamp-1 font-display tracking-tight">
                                     {item.title || item.name}
                                 </h3>
-                                <div className="flex items-center gap-3 text-xs text-white/50 font-medium">
+                                <div className="flex items-center gap-3 text-xs text-white/40 font-medium tracking-wide">
                                     <span>{(item.release_date || item.first_air_date || '').slice(0, 4)}</span>
                                     <span className="w-1 h-1 rounded-full bg-white/20" />
-                                    <span className="uppercase tracking-wider">{item.media_type || 'Movie'}</span>
+                                    <span className="uppercase">{item.media_type || 'Movie'}</span>
                                 </div>
                             </div>
                         </motion.div>

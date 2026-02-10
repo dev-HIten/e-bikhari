@@ -103,7 +103,7 @@ const Watch = () => {
                         <motion.div
                             initial={{ opacity: 0, y: 40 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, ease: "easeOut" }}
+                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
                             className="space-y-8"
                         >
                             <div className="space-y-4">
@@ -198,7 +198,7 @@ const Watch = () => {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9, rotate: 3 }}
                             animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 30, delay: 0.2 }}
                             className="hidden lg:block relative"
                         >
                             <img

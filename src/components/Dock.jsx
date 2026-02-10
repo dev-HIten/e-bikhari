@@ -81,36 +81,61 @@ const Dock = () => {
         }
     };
 
+    const [scrollPosition, setScrollPosition] = useState(0);
+
+    // Track Scroll for Dynamic Positioning
+    useEffect(() => {
+        const handleScroll = () => setScrollPosition(window.scrollY);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const isScrolled = scrollPosition > 400; // Trigger after Hero
+
+    // Apple Spring Physics (super smooth)
+    const springTransition = {
+        type: "spring",
+        stiffness: 300,
+        damping: 30,
+        mass: 1
+    };
+
     return (
-        <div
-            className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-[300px] flex flex-col items-center pointer-events-none"
+        <motion.div
+            className="fixed z-50 flex flex-col items-end right-5 md:right-8"
+            animate={{ top: isScrolled ? (window.innerWidth < 768 ? 96 : 112) : (window.innerWidth < 768 ? 20 : 32) }} // top-24 (96px) / top-28 (112px) vs top-5 (20px) / top-8 (32px)
+            transition={{ duration: 0.6, type: "spring", bounce: 0.2 }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
             <motion.div
                 ref={dockRef}
-                className="pointer-events-auto flex items-center p-1.5 bg-black/80 backdrop-blur-2xl border border-white/10 rounded-full shadow-[0_0_40px_rgba(0,0,0,0.5)]"
-                initial={{ y: 100, opacity: 0 }}
+                layout
+                transition={springTransition}
+                className={`pointer-events-auto flex items-center p-2 backdrop-blur-3xl saturate-150 border border-white/20 rounded-full shadow-[0_8px_40px_rgba(0,0,0,0.6),0_0_20px_rgba(255,255,255,0.15)] transition-colors duration-500 ${isSearchExpanded ? 'bg-black/80' : 'bg-white/10 hover:bg-white/20'}`}
+                initial={{ y: -50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ type: "spring", stiffness: 260, damping: 20 }}
             >
                 {/* Unified Search Pill */}
                 <motion.div
-                    className={`flex items-center rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${isSearchExpanded ? 'bg-white/5 pl-4 pr-1' : ''}`}
+                    className={`flex items-center rounded-full ${isSearchExpanded ? 'pl-4 pr-1 gap-2' : ''}`}
                     layout
+                    transition={springTransition}
                 >
                     <motion.input
                         ref={inputRef}
+                        layout
                         initial={{ width: 0, opacity: 0 }}
                         animate={{
-                            width: isSearchExpanded ? (window.innerWidth < 640 ? 200 : 260) : 0,
+                            width: isSearchExpanded ? (typeof window !== 'undefined' && window.innerWidth < 640 ? 260 : 300) : 0,
                             opacity: isSearchExpanded ? 1 : 0
                         }}
-                        transition={{ duration: 0.3, ease: "circOut" }}
-                        className="bg-transparent border-none outline-none text-white text-base placeholder-white/30 h-10 min-w-0"
-                        placeholder="Search VEXO..."
+                        transition={springTransition}
+                        className="bg-transparent border-none outline-none text-white text-lg placeholder-white/40 h-10 min-w-0 font-medium"
+                        placeholder="Search..."
                         onChange={handleSearchChangeDebounced}
                         style={{ pointerEvents: isSearchExpanded ? 'auto' : 'none' }}
+                        onFocus={() => setIsSearchExpanded(true)}
                         onBlur={() => {
                             if (!inputRef.current.value) {
                                 setIsSearchExpanded(false);
@@ -120,7 +145,7 @@ const Dock = () => {
 
                     <button
                         onClick={toggleSearch}
-                        className="p-3 rounded-full transition-all duration-300 relative group flex-shrink-0 text-white hover:bg-white/10"
+                        className={`p-3 rounded-full relative group flex-shrink-0 transition-all duration-300 ${isSearchExpanded ? 'bg-white/10 text-white hover:bg-white/20' : 'text-white hover:scale-110'}`}
                         aria-label={isSearchExpanded ? "Close Search" : "Open Search"}
                     >
                         <div className="relative w-6 h-6">
@@ -154,7 +179,7 @@ const Dock = () => {
                     </button>
                 </motion.div>
             </motion.div>
-        </div>
+        </motion.div>
     );
 };
 

@@ -7,8 +7,12 @@
 }
 
 body {
-  @apply bg-focus-black text-white antialiased font-sans;
+  @apply bg-focus-black text-white antialiased font-sans leading-relaxed;
   overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-display tracking-tight;
 }
 
 /* Smooth Scrolling */
@@ -22,6 +26,15 @@ html {
 }
 
 .scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }

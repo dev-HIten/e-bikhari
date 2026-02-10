@@ -14,7 +14,7 @@ const MediaRow = ({ title, queryKey, queryFn }) => {
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
             className="mb-12"
         >
             <h2 className="px-[6%] text-xl font-semibold mb-4 text-white/70 flex items-center gap-4">

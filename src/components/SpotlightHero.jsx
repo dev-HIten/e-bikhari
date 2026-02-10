@@ -63,7 +63,7 @@ const SpotlightHero = ({ item }) => {
     };
 
     return (
-        <div className="relative h-[85vh] w-full flex items-end justify-center pb-20 overflow-hidden group bg-black">
+        <div className="relative h-[85vh] w-full flex items-end justify-start pb-20 overflow-hidden group bg-black pl-4 md:pl-16">
             {/* Immersive Background with Parallax */}
             <motion.div
                 style={{ y, opacity }}
@@ -101,20 +101,20 @@ const SpotlightHero = ({ item }) => {
                 <div className="absolute inset-0 bg-black/20 backdrop-blur-[2px]" />
             </motion.div>
 
-            {/* Centered Content */}
-            <div className="relative z-10 text-center max-w-4xl px-6 space-y-6">
+            {/* Content - Left Aligned */}
+            <div className="relative z-10 text-left max-w-4xl space-y-6">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 >
                     <span className="inline-block py-1.5 px-4 rounded-full border border-yellow-500/30 bg-yellow-500/10 backdrop-blur-md text-[10px] md:text-xs font-bold text-yellow-400 mb-4 md:mb-6 tracking-widest uppercase shadow-[0_0_20px_rgba(234,179,8,0.2)]">
                         ★ Spotlight Selection
                     </span>
-                    <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-8xl font-black tracking-tighter text-white drop-shadow-2xl mb-4 leading-[0.95] md:leading-[0.9]">
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold font-display tracking-normal text-white drop-shadow-2xl mb-4 leading-tight md:leading-[1.1]">
                         {item.title || item.name}
                     </h1>
-                    <p className="text-sm sm:text-lg md:text-xl text-white/80 max-w-2xl mx-auto line-clamp-3 md:line-clamp-2 leading-relaxed px-4 md:px-0">
+                    <p className="text-sm sm:text-lg md:text-xl text-white/80 max-w-2xl line-clamp-3 md:line-clamp-2 leading-relaxed">
                         {item.overview}
                     </p>
                 </motion.div>
@@ -122,8 +122,8 @@ const SpotlightHero = ({ item }) => {
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.4, duration: 0.5 }}
-                    className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2"
+                    transition={{ type: "spring", stiffness: 300, damping: 30, delay: 0.1 }}
+                    className="flex flex-col sm:flex-row items-center justify-start gap-4 pt-2"
                 >
                     <button
                         onClick={() => navigate(`/watch/${item.media_type || 'movie'}/${item.id}`)}

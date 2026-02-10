@@ -5,6 +5,7 @@ import SpotlightHero from '../components/SpotlightHero';
 import MasonryGrid from '../components/MasonryGrid';
 import NetworkError from '../components/NetworkError';
 import { useWatchlist } from '../hooks/useWatchlist';
+import { motion } from 'framer-motion';
 
 import LazyLoad from '../components/LazyLoad';
 
@@ -30,12 +31,20 @@ const Home = () => {
         { id: 16, name: "Animation" },
         { id: 35, name: "Comedy" },
         { id: 80, name: "Crime" },
+        { id: 99, name: "Documentary" },
         { id: 18, name: "Drama" },
         { id: 10751, name: "Family" },
         { id: 14, name: "Fantasy" },
+        { id: 36, name: "History" },
         { id: 27, name: "Horror" },
+        { id: 10402, name: "Music" },
+        { id: 9648, name: "Mystery" },
+        { id: 10749, name: "Romance" },
         { id: 878, name: "Sci-Fi" },
+        { id: 10770, name: "TV Movie" },
         { id: 53, name: "Thriller" },
+        { id: 10752, name: "War" },
+        { id: 37, name: "Western" },
     ];
 
     const handleGenreClick = (g) => {
@@ -65,16 +74,27 @@ const Home = () => {
                         <SpotlightHero item={heroItem} />
                     )}
 
-                    {/* Genre Chips (Sticky) */}
-                    <div className="sticky top-0 z-40 py-4 mb-12 bg-[#0a0a0a]/90 backdrop-blur-xl overflow-x-auto no-scrollbar px-4 md:px-8 flex gap-3 -mx-4 md:mx-0 shadow-2xl transition-all duration-300">
+                    {/* Genre Chips (Sticky) - Floating & Transparent */}
+                    <div
+                        className="sticky top-0 z-40 py-4 mb-4 overflow-x-auto no-scrollbar px-4 md:px-16 flex gap-3 -mx-4 md:mx-0"
+                        style={{
+                            maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+                            WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)'
+                        }}
+                    >
                         {genres.map(g => (
-                            <button
+                            <motion.button
                                 key={g.id}
                                 onClick={() => handleGenreClick(g)}
-                                className="whitespace-nowrap px-4 py-2 md:px-6 md:py-2.5 rounded-full text-xs md:text-sm font-semibold tracking-wide transition-all border border-white/5 bg-white/5 hover:bg-white text-white/60 hover:text-black hover:scale-105 active:scale-95 shadow-sm hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] flex-shrink-0"
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                className="whitespace-nowrap px-5 py-2.5 rounded-full text-xs md:text-sm font-medium tracking-wide border border-white/10 bg-white/5 backdrop-blur-md hover:bg-white/20 hover:border-white/30 text-white/70 hover:text-white hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] flex-shrink-0 first:ml-4 last:mr-4"
                             >
                                 {g.name}
-                            </button>
+                            </motion.button>
                         ))}
                     </div>
 
