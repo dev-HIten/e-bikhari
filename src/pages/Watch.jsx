@@ -4,14 +4,12 @@ import { api, BACKDROP_BASE, IMAGE_BASE } from '../services/api';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useState, useRef } from 'react';
 import MasonryGrid from '../components/MasonryGrid';
-import { useWatchlist } from '../hooks/useWatchlist';
 
 const Watch = () => {
     const { type, id } = useParams();
     const navigate = useNavigate();
     const [isPlaying, setIsPlaying] = useState(false);
     const containerRef = useRef(null);
-    const { addToWatchlist, removeFromWatchlist, isInWatchlist } = useWatchlist();
 
     // Fetch Details & Credits
     const { data: item, isLoading } = useQuery({
@@ -36,7 +34,6 @@ const Watch = () => {
         ? `https://www.vidking.net/embed/tv/${id}/1/1`
         : `https://www.vidking.net/embed/movie/${id}`;
 
-    const inList = item ? isInWatchlist(item.id) : false;
     const cast = credits?.cast?.slice(0, 10) || [];
 
     return (
@@ -138,27 +135,12 @@ const Watch = () => {
                             <div className="flex flex-wrap gap-4">
                                 <button
                                     onClick={() => setIsPlaying(true)}
-                                    className="group relative px-10 py-5 bg-white text-black rounded-full font-bold text-xl flex items-center gap-3 hover:scale-105 transition-transform shadow-[0_0_50px_-10px_rgba(255,255,255,0.4)]"
+                                    className="bg-white text-black px-8 py-3.5 rounded-full font-bold text-lg flex items-center gap-3 hover:bg-white/90 hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)]"
                                 >
-                                    <div className="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center group-hover:bg-[#2997FF] transition-colors">
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="ml-1">
-                                            <path d="M8 5v14l11-7z" />
-                                        </svg>
-                                    </div>
-                                    <span>Watch Now</span>
-                                </button>
-
-                                <button
-                                    onClick={() => inList ? removeFromWatchlist(item.id) : addToWatchlist(item)}
-                                    className={`px-8 py-5 rounded-full font-bold text-lg flex items-center gap-3 transition-all border ${inList
-                                        ? 'bg-white/10 border-white/20 text-white hover:bg-white/20'
-                                        : 'bg-transparent border-white/20 text-white hover:bg-white/5'
-                                        }`}
-                                >
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill={inList ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2">
-                                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7">
+                                        <path d="M8 5v14l11-7z" />
                                     </svg>
-                                    <span>{inList ? 'Added' : 'Add to List'}</span>
+                                    <span>Play</span>
                                 </button>
                             </div>
 
