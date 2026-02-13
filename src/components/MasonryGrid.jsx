@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { IMAGE_BASE } from '../services/api';
 import SkeletonCard from './SkeletonCard';
 import NetworkError from './NetworkError';
+import MovieCard from './MovieCard';
 
 const MasonryGrid = ({ title, queryKey, queryFn }) => {
     const navigate = useNavigate();
@@ -70,58 +71,8 @@ const MasonryGrid = ({ title, queryKey, queryFn }) => {
             </motion.h2>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 gap-y-12" style={{ contentVisibility: 'auto', containIntrinsicSize: '1px 1000px' }}>
-                {items.map((item, index) => (
-                    item.poster_path && (
-                        <motion.div
-                            key={item.id}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            whileHover={{ y: -12, scale: 1.02 }}
-                            transition={{ duration: 0.4, type: "spring", stiffness: 300, damping: 20, mass: 1.2 }}
-                            viewport={{ once: true, margin: "50px" }}
-                            className="group cursor-pointer flex flex-col gap-3 relative z-0 hover:z-20 will-change-transform" // Increased z-index on hover
-                            onClick={() => navigate(`/watch/${item.media_type || 'movie'}/${item.id}`)}
-                        >
-                            {/* Card Image Container */}
-                            <div className="relative aspect-[2/3] rounded-xl overflow-hidden bg-white/5 shadow-[0_4px_20px_rgba(0,0,0,0.3)] group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.6)] transition-all duration-500 ring-1 ring-white/10 group-hover:ring-white/40">
-                                <motion.img
-                                    initial={{ opacity: 0, filter: "blur(10px)" }}
-                                    whileInView={{ opacity: 1, filter: "blur(0px)" }}
-                                    transition={{ duration: 0.5 }}
-                                    src={`${IMAGE_BASE}${item.poster_path}`}
-                                    alt={item.title}
-                                    className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-110" // Smoother scale
-                                    loading="lazy"
-                                />
-
-                                {/* Premium Gradient Overlay (Subtle) */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
-
-                                {/* Cinematic Shine Effect (Refined) */}
-                                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20 overflow-hidden">
-                                     <div className="absolute top-0 left-[-100%] w-[50%] h-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-[-25deg] group-hover:animate-[shine_1.2s_ease-out_forwards]" />
-                                </div>
-
-                                {/* Rating Badge (Glass) */}
-                                <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2 py-1 rounded-lg flex items-center gap-1 border border-white/10 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-[-10px] group-hover:translate-y-0 shadow-lg">
-                                    <span className="text-[#f5c518] text-xs">★</span>
-                                    <span className="text-white text-xs font-bold font-display">{item.vote_average?.toFixed(1)}</span>
-                                </div>
-                            </div>
-
-                            {/* Clean Stats */}
-                            <div className="px-1 space-y-1">
-                                <h3 className="font-bold text-base leading-snug text-white/90 group-hover:text-white transition-colors duration-300 line-clamp-1 font-display tracking-tight">
-                                    {item.title || item.name}
-                                </h3>
-                                <div className="flex items-center gap-3 text-xs text-white/40 font-medium tracking-wide">
-                                    <span>{(item.release_date || item.first_air_date || '').slice(0, 4)}</span>
-                                    <span className="w-1 h-1 rounded-full bg-white/20" />
-                                    <span className="uppercase">{item.media_type || 'Movie'}</span>
-                                </div>
-                            </div>
-                        </motion.div>
-                    )
+                {items.map((item) => (
+                    <MovieCard key={item.id} item={item} />
                 ))}
             </div>
         </section>

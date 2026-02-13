@@ -139,30 +139,17 @@ const SpotlightHero = ({ item }) => {
             </motion.div>
 
             {/* Layer 2: The Vignette & Ambient Glow - z-1 */}
-            <div className="absolute inset-0 z-1 pointer-events-none">
-                {/* 1. Global Gradient (Top/Bottom Fade) */}
-                <div 
-                    className="absolute inset-0"
-                    style={{
-                        background: 'linear-gradient(to top, #0B0C0E 10%, rgba(11,12,14,0.6) 50%, transparent 100%)'
-                    }}
-                />
-                
-                {/* 2. Ambient Glow (Jungle Green / Warm Orange) - "Ambilight" Effect */}
-                <div 
-                    className="absolute inset-0 mix-blend-screen opacity-60"
-                    style={{
-                        background: 'radial-gradient(circle at 20% 90%, rgba(50, 168, 82, 0.25), transparent 60%)' // Jungle Green tint
-                    }}
-                />
-                 {/* 3. Bottom Fade to Black (Seamless transition) */}
-                 <div 
-                    className="absolute bottom-0 left-0 right-0 h-[50vh]"
-                    style={{
-                         background: 'linear-gradient(to bottom, transparent 0%, #0a0a0a 100%)'
-                    }}
-                 />
-            </div>
+            <div 
+                className="absolute inset-0 z-1 pointer-events-none"
+                style={{
+                    background: `
+                        linear-gradient(to bottom, transparent 0%, #0a0a0a 100%),
+                        radial-gradient(circle at 20% 90%, rgba(50, 168, 82, 0.25), transparent 60%),
+                        linear-gradient(to top, #0B0C0E 10%, rgba(11,12,14,0.6) 50%, transparent 100%)
+                    `,
+                    backgroundBlendMode: 'normal, screen, normal'
+                }}
+            />
 
             {/* Layer 3: Content - z-10 */}
             <div className="absolute z-10 bottom-[15%] left-[4%] w-full max-w-screen-2xl pr-8 pl-4 md:pl-12">

@@ -60,9 +60,44 @@ const Navbar = () => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 50); // Increased threshold
         };
-        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    // Direct Type to Search & Escape to Close
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            // Escape Key: Close Search
+            if (e.key === 'Escape') {
+                handleClearSearch();
+                return;
+            }
+
+            // Check if user is typing in an input or textarea
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+            // Check if key is a single alphanumeric character
+            if (e.key.length === 1 && /^[a-zA-Z0-9]$/.test(e.key)) {
+                setIsSearchExpanded(true);
+                if (inputRef.current) {
+                    inputRef.current.focus();
+                }
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+
+    const handleClearSearch = () => {
+        setIsSearchExpanded(false);
+        setSearchParams({});
+        if (inputRef.current) {
+            inputRef.current.value = "";
+            inputRef.current.blur();
+        }
+        if (location.pathname !== "/") navigate("/");
+    };
 
     // Simplified Debounce for Search
     const debounceTimeout = useRef(null);
@@ -79,20 +114,6 @@ const Navbar = () => {
                 setSearchParams({});
             }
         }, 500);
-    };
-
-    const toggleSearch = () => {
-        if (isSearchExpanded) {
-            setIsSearchExpanded(false);
-            setSearchParams({});
-            if (inputRef.current) {
-                inputRef.current.value = "";
-                inputRef.current.blur();
-            }
-        } else {
-            setIsSearchExpanded(true);
-            inputRef.current?.focus();
-        }
     };
 
     return (
@@ -157,6 +178,19 @@ const Navbar = () => {
                     }}
                     onChange={handleSearchChangeDebounced}
                 />
+
+                {/* X Button for Clearing */}
+                {isSearchExpanded && (
+                     <button 
+                        onClick={(e) => {
+                            e.stopPropagation(); // Prevent focusing input again if needed
+                            handleClearSearch();
+                        }}
+                        className="w-10 h-10 flex items-center justify-center text-white/50 hover:text-white transition-colors"
+                     >
+                         <FiX size={18} />
+                     </button>
+                )}
             </motion.div>
         </motion.nav>
     );
