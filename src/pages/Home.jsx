@@ -16,47 +16,17 @@ const Home = () => {
     const genreName = searchParams.get('name');
     const { watchlist } = useWatchlist(); // Get watchlist
 
-    // Fetch Trending for Sidebar/Hero
+    // Trending & Hero
     const { data: trending, isError: isHeroError, isLoading: isHeroLoading, refetch: refetchHero } = useQuery({
         queryKey: ['trending'],
         queryFn: () => api.getTrending(1),
-        retry: 1
+        retry: 1,
+        staleTime: 1000 * 60 * 5, // 5 minutes
     });
     const heroItem = trending?.results?.[0];
 
-    // Genre List (Hardcoded for control)
-    const genres = [
-        { id: 28, name: "Action" },
-        { id: 12, name: "Adventure" },
-        { id: 16, name: "Animation" },
-        { id: 35, name: "Comedy" },
-        { id: 80, name: "Crime" },
-        { id: 99, name: "Documentary" },
-        { id: 18, name: "Drama" },
-        { id: 10751, name: "Family" },
-        { id: 14, name: "Fantasy" },
-        { id: 36, name: "History" },
-        { id: 27, name: "Horror" },
-        { id: 10402, name: "Music" },
-        { id: 9648, name: "Mystery" },
-        { id: 10749, name: "Romance" },
-        { id: 878, name: "Sci-Fi" },
-        { id: 10770, name: "TV Movie" },
-        { id: 53, name: "Thriller" },
-        { id: 10752, name: "War" },
-        { id: 37, name: "Western" },
-    ];
-
-    const handleGenreClick = (g) => {
-        if (genreId === String(g.id)) {
-            setSearchParams({}); // Deselect
-        } else {
-            setSearchParams({ genre: g.id, name: g.name });
-        }
-    };
-
     return (
-        <div className="min-h-screen bg-[#0a0a0a] pb-32">
+        <div className="min-h-screen bg-[#0a0a0a] pb-32 pt-20">
             {!query && !genreId ? (
                 // Standard Home Feed
                 <>
@@ -74,31 +44,9 @@ const Home = () => {
                         <SpotlightHero item={heroItem} />
                     )}
 
-                    {/* Genre Chips (Sticky) - Floating & Transparent */}
-                    <div
-                        className="sticky top-0 z-40 py-4 mb-4 overflow-x-auto no-scrollbar px-4 md:px-16 flex gap-3 -mx-4 md:mx-0"
-                        style={{
-                            maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
-                            WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)'
-                        }}
-                    >
-                        {genres.map(g => (
-                            <motion.button
-                                key={g.id}
-                                onClick={() => handleGenreClick(g)}
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                                className="whitespace-nowrap px-5 py-2.5 rounded-full text-xs md:text-sm font-medium tracking-wide border border-white/10 bg-white/5 backdrop-blur-md hover:bg-white/20 hover:border-white/30 text-white/70 hover:text-white hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] flex-shrink-0 first:ml-4 last:mr-4"
-                            >
-                                {g.name}
-                            </motion.button>
-                        ))}
-                    </div>
 
-                    <div className="space-y-16 relative z-10 pb-20">
+
+                    <div className="space-y-16 relative z-10 pb-20 -mt-20 md:-mt-32">
                         {/* My List Section */}
                         {watchlist.length > 0 && (
                             <MasonryGrid
@@ -130,21 +78,7 @@ const Home = () => {
                         </button>
                         <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-white">{genreName} Movies</h1>
                     </div>
-                    {/* Genre Chips (Visible even in filter mode to switch fast) */}
-                    <div className="py-4 mb-8 overflow-x-auto no-scrollbar px-4 md:px-8 flex gap-3">
-                        {genres.map(g => (
-                            <button
-                                key={g.id}
-                                onClick={() => handleGenreClick(g)}
-                                className={`whitespace-nowrap px-6 py-2.5 rounded-full text-sm font-semibold tracking-wide transition-all border ${genreId === String(g.id)
-                                    ? 'bg-white text-black border-white shadow-[0_0_20px_rgba(255,255,255,0.3)]'
-                                    : 'border-white/5 bg-white/5 hover:bg-white/10 text-white/60 hover:text-white'
-                                    }`}
-                            >
-                                {g.name}
-                            </button>
-                        ))}
-                    </div>
+
 
                     <MasonryGrid
                         title={`Top ${genreName}`}

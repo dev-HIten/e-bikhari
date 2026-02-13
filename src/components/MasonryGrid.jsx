@@ -11,7 +11,8 @@ const MasonryGrid = ({ title, queryKey, queryFn }) => {
     const { data, isLoading, isError, refetch } = useQuery({
         queryKey: [queryKey],
         queryFn,
-        retry: 1
+        retry: 1,
+        staleTime: 1000 * 60 * 5, // 5 minutes
     });
     const ref = useRef(null);
 
@@ -68,37 +69,37 @@ const MasonryGrid = ({ title, queryKey, queryFn }) => {
                 {title}
             </motion.h2>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 gap-y-12">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 gap-y-12" style={{ contentVisibility: 'auto', containIntrinsicSize: '1px 1000px' }}>
                 {items.map((item, index) => (
                     item.poster_path && (
                         <motion.div
                             key={item.id}
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
-                            whileHover={{ y: -10, scale: 1.05 }}
-                            transition={{ duration: 0.4, type: "spring", stiffness: 300, damping: 30 }}
+                            whileHover={{ y: -12, scale: 1.02 }}
+                            transition={{ duration: 0.4, type: "spring", stiffness: 300, damping: 20, mass: 1.2 }}
                             viewport={{ once: true, margin: "50px" }}
                             className="group cursor-pointer flex flex-col gap-3 relative z-0 hover:z-20 will-change-transform" // Increased z-index on hover
                             onClick={() => navigate(`/watch/${item.media_type || 'movie'}/${item.id}`)}
                         >
                             {/* Card Image Container */}
-                            <div className="relative aspect-[2/3] rounded-xl overflow-hidden bg-white/5 shadow-[0_8px_30px_rgba(0,0,0,0.12)] group-hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] transition-all duration-500 ring-1 ring-white/10 group-hover:ring-white/30">
+                            <div className="relative aspect-[2/3] rounded-xl overflow-hidden bg-white/5 shadow-[0_4px_20px_rgba(0,0,0,0.3)] group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.6)] transition-all duration-500 ring-1 ring-white/10 group-hover:ring-white/40">
                                 <motion.img
                                     initial={{ opacity: 0, filter: "blur(10px)" }}
                                     whileInView={{ opacity: 1, filter: "blur(0px)" }}
                                     transition={{ duration: 0.5 }}
                                     src={`${IMAGE_BASE}${item.poster_path}`}
                                     alt={item.title}
-                                    className="w-full h-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-105" // Smoother scale
+                                    className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-110" // Smoother scale
                                     loading="lazy"
                                 />
 
                                 {/* Premium Gradient Overlay (Subtle) */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-40 group-hover:opacity-60 transition-opacity duration-500" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
 
                                 {/* Cinematic Shine Effect (Refined) */}
-                                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-20 overflow-hidden">
-                                     <div className="absolute top-0 left-[-100%] w-[50%] h-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-[-25deg] group-hover:animate-[shine_1s_ease-out_forwards]" />
+                                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20 overflow-hidden">
+                                     <div className="absolute top-0 left-[-100%] w-[50%] h-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-[-25deg] group-hover:animate-[shine_1.2s_ease-out_forwards]" />
                                 </div>
 
                                 {/* Rating Badge (Glass) */}

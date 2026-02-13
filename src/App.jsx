@@ -1,8 +1,9 @@
 import { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import Dock from './components/Dock';
+import Navbar from './components/Navbar';
 import AmbientLight from './components/AmbientLight';
+import Footer from './components/Footer';
 
 // Lazy load pages
 const Home = lazy(() => import('./pages/Home'));
@@ -40,9 +41,9 @@ function App() {
                 </div>
             )}
 
-            {/* Dock Navigation */}
+            {/* Navbar Navigation */}
             {!location.pathname.includes('/watch') && (
-                <Dock />
+                <Navbar />
             )}
 
             <div className="min-h-screen bg-[#0a0a0a]">
@@ -67,6 +68,7 @@ function App() {
                         </Routes>
                     </Suspense>
                 </AnimatePresence>
+                <Footer />
             </div>
         </>
     );
