@@ -114,7 +114,7 @@ const SpotlightHero = ({ item }) => {
                     src={`${BACKDROP_BASE}${item.backdrop_path}`}
                     alt={item.title}
                     className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${showVideo ? 'opacity-0' : 'opacity-100'}`}
-                    fetchPriority="high"
+                    fetchpriority="high"
                 />
 
                 {/* YouTube Video Background */}
@@ -152,7 +152,8 @@ const SpotlightHero = ({ item }) => {
             />
 
             {/* Layer 3: Content - z-10 */}
-            <div className="absolute z-10 bottom-[15%] left-[4%] w-full max-w-screen-2xl pr-8 pl-4 md:pl-12">
+            <div className="absolute inset-0 z-10 flex flex-col justify-end pb-[15%] px-4 md:px-8">
+                <div className="w-full max-w-[1800px] mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -207,6 +208,7 @@ const SpotlightHero = ({ item }) => {
                         </button>
                     </div>
                 </motion.div>
+            </div>
             </div>
 
 

@@ -23,7 +23,7 @@ const MasonryGrid = ({ title, queryKey, queryFn }) => {
 
     if (isError) {
         return (
-            <section className="px-4 md:px-8 py-12 max-w-[1800px] mx-auto">
+            <section ref={ref} className="px-4 md:px-8 py-12 max-w-[1800px] mx-auto">
                 <h2 className="text-2xl font-bold text-white/50 mb-8">{title}</h2>
                 <div className="bg-white/5 rounded-2xl border border-white/5 overflow-hidden">
                     <NetworkError onRetry={refetch} />
@@ -34,7 +34,7 @@ const MasonryGrid = ({ title, queryKey, queryFn }) => {
 
     if (isLoading) {
         return (
-            <section className="px-4 md:px-8 py-12 max-w-[1800px] mx-auto">
+            <section ref={ref} className="px-4 md:px-8 py-12 max-w-[1800px] mx-auto">
                 <div className="h-10 w-48 bg-white/5 rounded mb-12 animate-pulse" />
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 gap-y-12">
                     {[...Array(10)].map((_, i) => <SkeletonCard key={i} />)}
