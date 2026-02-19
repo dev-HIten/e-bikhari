@@ -31,12 +31,12 @@ const Home = () => {
                 // Standard Home Feed
                 <>
                     {isHeroError ? (
-                        <div className="h-[85vh] w-full flex items-center justify-center">
+                        <div className="min-h-screen w-full flex items-center justify-center">
                             <NetworkError onRetry={refetchHero} />
                         </div>
                     ) : isHeroLoading ? (
                         // Hero Skeleton
-                        <div className="relative h-[85vh] w-full bg-[#0a0a0a] overflow-hidden">
+                        <div className="relative min-h-screen w-full bg-[#0a0a0a] overflow-hidden">
                             <div className="absolute inset-0 animate-pulse bg-white/5" />
                             <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0a0a0a] to-transparent" />
                         </div>
