@@ -156,10 +156,14 @@ const Navbar = () => {
             {/* Search Pill (FixedWidth Right) */}
             <motion.div
                 layout
+                onClick={() => {
+                    setIsSearchExpanded(true);
+                    if (inputRef.current) inputRef.current.focus();
+                }}
                 className={`flex-shrink-0 flex items-center h-10 rounded-full transition-all duration-300 border ${
                     isSearchExpanded 
                     ? "bg-[#1c1c1e] border-white/20 w-full md:w-[300px]" 
-                    : "bg-white/10 border-white/5 w-10 md:w-[260px] hover:bg-white/20"
+                    : "bg-white/10 border-white/5 w-10 md:w-[260px] hover:bg-white/20 cursor-pointer"
                 }`}
             >
                 <div className="flex items-center justify-center w-10 h-10 text-white/50">
@@ -169,7 +173,7 @@ const Navbar = () => {
                 <input
                     ref={inputRef}
                     className={`bg-transparent border-none outline-none text-white text-sm placeholder-white/30 h-full w-full pr-4 ${
-                        !isSearchExpanded && "hidden md:block" // Hide text on mobile when collapsed
+                        !isSearchExpanded ? "hidden md:block" : "block"
                     }`}
                     placeholder="Search movies & shows..."
                     onFocus={() => setIsSearchExpanded(true)}
