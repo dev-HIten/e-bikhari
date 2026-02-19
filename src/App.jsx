@@ -66,9 +66,9 @@ function App() {
                             <Route path="/watch/:type/:id" element={<Watch />} />
                             <Route path="*" element={<NotFound />} />
                         </Routes>
-                        <Footer />
                     </Suspense>
                 </AnimatePresence>
+                <Footer />
             </div>
         </>
     );

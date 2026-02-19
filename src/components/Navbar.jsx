@@ -118,7 +118,7 @@ const Navbar = () => {
 
     return (
         <motion.nav
-            className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 transition-all duration-500"
+            className="fixed top-0 left-0 right-0 z-50 flex items-center gap-4 px-4 py-3 transition-all duration-500"
             style={{
                 background: 'rgba(0, 0, 0, 0.5)',
                 backdropFilter: 'blur(12px)',
@@ -129,10 +129,10 @@ const Navbar = () => {
             animate={{ y: 0 }}
             transition={{ duration: 0.5 }}
         >
-            {/* Categories (Scrollable Left) */}
+            {/* Categories (Scrollable Left) - Always visible now */}
             <div 
                 ref={scrollContainerRef}
-                className="flex-1 overflow-x-auto no-scrollbar flex items-center gap-2 mask-linear-fade transition-opacity duration-500 opacity-100 pointer-events-auto pr-4"
+                className="flex-1 overflow-x-auto no-scrollbar flex items-center gap-2 mask-linear-fade transition-opacity duration-500 opacity-100 pointer-events-auto"
                 style={{
                     maskImage: 'linear-gradient(to right, black 95%, transparent)',
                     WebkitMaskImage: 'linear-gradient(to right, black 95%, transparent)'
@@ -153,17 +153,17 @@ const Navbar = () => {
                 ))}
             </div>
 
-            {/* Search Pill (Centered) */}
+            {/* Search Pill (FixedWidth Right) */}
             <motion.div
                 layout
                 onClick={() => {
                     setIsSearchExpanded(true);
                     if (inputRef.current) inputRef.current.focus();
                 }}
-                className={`absolute left-1/2 -translate-x-1/2 hidden md:flex items-center h-10 rounded-full transition-all duration-300 border ${
+                className={`flex-shrink-0 flex items-center h-10 rounded-full transition-all duration-300 border ${
                     isSearchExpanded 
-                    ? "bg-[#1c1c1e] border-white/20 w-[400px] z-50" 
-                    : "bg-white/10 border-white/5 w-[260px] hover:bg-white/20 cursor-pointer"
+                    ? "bg-[#1c1c1e] border-white/20 w-full md:w-[300px]" 
+                    : "bg-white/10 border-white/5 w-10 md:w-[260px] hover:bg-white/20 cursor-pointer"
                 }`}
             >
                 <div className="flex items-center justify-center w-10 h-10 text-white/50">
@@ -172,7 +172,9 @@ const Navbar = () => {
                 
                 <input
                     ref={inputRef}
-                    className="bg-transparent border-none outline-none text-white text-sm placeholder-white/30 h-full w-full pr-4"
+                    className={`bg-transparent border-none outline-none text-white text-sm placeholder-white/30 h-full w-full pr-4 ${
+                        !isSearchExpanded ? "hidden md:block" : "block"
+                    }`}
                     placeholder="Search movies & shows..."
                     onFocus={() => setIsSearchExpanded(true)}
                     onBlur={() => {
@@ -194,36 +196,6 @@ const Navbar = () => {
                      </button>
                 )}
             </motion.div>
-
-            {/* Mobile Search Button (Visible only on small screens) */}
-             <button 
-                className="md:hidden w-10 h-10 flex items-center justify-center bg-white/10 rounded-full text-white"
-                onClick={() => setIsSearchExpanded(!isSearchExpanded)}
-             >
-                <FiSearch size={18} />
-             </button>
-
-             {/* Expanded Mobile Search Overlay */}
-             {isSearchExpanded && (
-                <div className="absolute top-16 left-4 right-4 md:hidden bg-[#1c1c1e] border border-white/10 rounded-xl p-2 flex items-center animate-fade-in-up shadow-2xl z-50">
-                     <div className="flex items-center justify-center w-10 h-10 text-white/50">
-                        <FiSearch size={18} />
-                    </div>
-                    <input
-                        autoFocus
-                        className="bg-transparent border-none outline-none text-white text-sm placeholder-white/30 h-full w-full pr-2"
-                        placeholder="Search..."
-                        onChange={handleSearchChangeDebounced}
-                    />
-                    <button 
-                        onClick={() => setIsSearchExpanded(false)}
-                        className="w-10 h-10 flex items-center justify-center text-white/50 hover:text-white"
-                     >
-                         <FiX size={18} />
-                     </button>
-                </div>
-             )}
-
         </motion.nav>
     );
 };
