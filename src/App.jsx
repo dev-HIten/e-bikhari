@@ -66,9 +66,11 @@ function App() {
                             <Route path="/watch/:type/:id" element={<Watch />} />
                             <Route path="*" element={<NotFound />} />
                         </Routes>
+                        <div className="animate-fade-in-up">
+                            <Footer />
+                        </div>
                     </Suspense>
                 </AnimatePresence>
-                <Footer />
             </div>
         </>
     );
