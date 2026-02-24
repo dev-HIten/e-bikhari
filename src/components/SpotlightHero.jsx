@@ -1,19 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { BACKDROP_BASE, api } from '../services/api';
 import { useState, useEffect, useRef } from 'react';
-import { useWatchlist } from '../hooks/useWatchlist';
 
 const SpotlightHero = ({ item }) => {
     const navigate = useNavigate();
-    const { scrollY } = useScroll();
-    const y = useTransform(scrollY, [0, 500], [0, 200]);
-    const opacity = useTransform(scrollY, [0, 400], [1, 0]);
-    const { addToWatchlist, removeFromWatchlist, isInWatchlist } = useWatchlist();
 
     // Video State
     const [trailerKey, setTrailerKey] = useState(null);
     const [showVideo, setShowVideo] = useState(false);
+    const [details, setDetails] = useState(null);
 
     // Mute State (Moved up to fix Hook Error)
     const [isMuted, setIsMuted] = useState(true);
@@ -25,12 +20,20 @@ const SpotlightHero = ({ item }) => {
             // Reset state on item change
             setTrailerKey(null);
             setShowVideo(false);
+            setDetails(null);
 
-            // Fetch Trailer
-            const fetchTrailer = async () => {
+            // Fetch Trailer and Details
+            const fetchData = async () => {
                 try {
-                    const data = await api.getVideos(item.media_type || 'movie', item.id);
-                    const trailer = data.results?.find(
+                    const mediaType = item.media_type || 'movie';
+                    
+                    // Fetch videos and details in parallel for speed
+                    const [videosData, detailsData] = await Promise.all([
+                        api.getVideos(mediaType, item.id),
+                        api.getDetails(mediaType, item.id)
+                    ]);
+                    
+                    const trailer = videosData.results?.find(
                         vid => vid.site === 'YouTube' && (vid.type === 'Trailer' || vid.type === 'Teaser')
                     );
                     if (trailer) {
@@ -38,17 +41,16 @@ const SpotlightHero = ({ item }) => {
                         // Delay showing video to allow poster to set mood
                         timer = setTimeout(() => setShowVideo(true), 2500);
                     }
+                    
+                    setDetails(detailsData);
                 } catch (e) {
-                    console.error("Failed to fetch trailer", e);
+                    console.error("Failed to fetch data for SpotlightHero", e);
                 }
             };
-            fetchTrailer();
+            fetchData();
         }
         return () => clearTimeout(timer);
     }, [item]);
-
-    if (!item) return null;
-    const inList = isInWatchlist(item.id);
 
     // --- Smart Playback Logic ---
     const sendCommand = (func) => {
@@ -105,8 +107,7 @@ const SpotlightHero = ({ item }) => {
     return (
         <div className="relative h-[90vh] w-full bg-[#0B0C0E] overflow-hidden group">
             {/* Layer 1: Base (Video/Image) - z-0 */}
-            <motion.div
-                style={{ y, opacity }}
+            <div
                 className="absolute inset-0 z-0"
             >
                 {/* Poster - Always rendered as fallback/loading */}
@@ -114,29 +115,24 @@ const SpotlightHero = ({ item }) => {
                     src={`${BACKDROP_BASE}${item.backdrop_path}`}
                     alt={item.title}
                     className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${showVideo ? 'opacity-0' : 'opacity-100'}`}
-                    fetchpriority="high"
+                    fetchPriority="high"
                 />
 
                 {/* YouTube Video Background */}
-                <AnimatePresence>
-                    {showVideo && trailerKey && (
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="absolute inset-0 w-full h-full pointer-events-none scale-[1.35]" // Increased scale to remove black bars/controls
-                        >
-                            <iframe
-                                ref={iframeRef}
-                                src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=1&controls=0&loop=1&playlist=${trailerKey}&showinfo=0&rel=0&iv_load_policy=3&disablekb=1&modestbranding=1&enablejsapi=1`}
-                                className="w-full h-full object-cover"
-                                allow="autoplay; encrypted-media"
-                                title="Hero Trailer"
-                            />
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </motion.div>
+                {showVideo && trailerKey && (
+                    <div
+                        className="absolute inset-0 w-full h-full pointer-events-none scale-[1.35] animate-fade-in" // Use simple css fade-in instead of framer
+                    >
+                        <iframe
+                            ref={iframeRef}
+                            src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=1&controls=0&loop=1&playlist=${trailerKey}&showinfo=0&rel=0&iv_load_policy=3&disablekb=1&modestbranding=1&enablejsapi=1`}
+                            className="w-full h-full object-cover"
+                            allow="autoplay; encrypted-media"
+                            title="Hero Trailer"
+                        />
+                    </div>
+                )}
+            </div>
 
             {/* Layer 2: The Vignette & Ambient Glow - z-1 */}
             <div 
@@ -154,44 +150,33 @@ const SpotlightHero = ({ item }) => {
             {/* Layer 3: Content - z-10 */}
             <div className="absolute inset-0 z-10 flex flex-col justify-end pb-[15%] px-4 md:px-8">
                 <div className="w-full max-w-[1800px] mx-auto">
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    className="max-w-4xl"
-                >
+                <div className="max-w-4xl animate-fade-in-up">
                     {/* Tag / Badge */}
-                    <div className="flex items-center gap-3 mb-6">
-                         <span className="flex items-center gap-1.5 bg-[#FFD700] text-black text-[10px] md:text-xs font-extrabold px-2.5 py-1 rounded-sm uppercase tracking-wider shadow-lg">
-                            <span className="text-xs">TOP</span> 10
+                    <div className="flex items-center gap-3 mb-4">
+                         <span className="flex items-center gap-1.5 bg-[#FFD700] text-black text-[10px] font-extrabold px-2 py-0.5 rounded-sm uppercase tracking-wider">
+                            <span>TOP 10</span>
                          </span>
-                         <span className="text-white/90 font-bold text-xs md:text-sm tracking-widest uppercase drop-shadow-md flex items-center gap-2">
-                             <span className="w-1 h-1 bg-white rounded-full"></span>
+                         <span className="text-white font-bold text-xs uppercase flex items-center gap-2">
                              #1 in Movies Today
                          </span>
                     </div>
 
                     {/* Title */}
-                    <h1 
-                        className="text-5xl md:text-[4rem] lg:text-[5.5rem] font-black leading-[1.0] tracking-tighter text-white mb-6 drop-shadow-2xl"
-                        style={{ fontFamily: "'Inter', system-ui, sans-serif" }} // Ensuring imposition
-                    >
+                    <h1 className="text-4xl md:text-5xl lg:text-7xl font-black leading-none tracking-tight text-white mb-4">
                         {item.title || item.name}
                     </h1>
 
                     {/* Metadata Row */}
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-white/90 text-sm md:text-base font-medium mb-6 drop-shadow-lg">
-                        <span className="text-[#46d369] font-bold">98% Match</span>
+                    <div className="flex flex-wrap items-center gap-3 text-white/90 text-sm font-medium mb-4">
+                        <span className="text-[#46d369]">98% Match</span>
                         <span>{(item.release_date || item.first_air_date || '').substring(0, 4)}</span>
-                        <span className="border border-white/40 bg-white/10 px-1.5 py-0.5 rounded-[4px] text-[10px] md:text-xs tracking-wide">4K</span>
-                        <span className="border border-white/40 bg-white/10 px-1.5 py-0.5 rounded-[4px] text-[10px] md:text-xs tracking-wide">DOLBY ATMOS</span>
-                        <span>{item.media_type === 'tv' ? '3 Seasons' : '2h 14m'}</span>
-                        <span className="hidden md:inline-block w-1 h-1 bg-white/50 rounded-full"></span>
-                        <span className="text-white/80">Thriller • Sci-Fi • Drama</span>
+                        {details?.runtime > 0 && <span>{Math.floor(details.runtime / 60)}h {details.runtime % 60}m</span>}
+                        {details?.number_of_seasons > 0 && <span>{details.number_of_seasons} Seasons</span>}
+                        <span>{details?.genres?.slice(0, 3).map(g => g.name).join(' • ')}</span>
                     </div>
 
                     {/* Description */}
-                    <p className="text-white/95 text-base md:text-lg lg:text-xl leading-relaxed max-w-full md:max-w-[60%] lg:max-w-[50%] drop-shadow-lg line-clamp-3 md:line-clamp-4 mb-8 font-light text-shadow-sm">
+                    <p className="text-white/80 text-sm md:text-base leading-relaxed max-w-[90%] md:max-w-[70%] line-clamp-3 mb-6">
                         {item.overview}
                     </p>
 
@@ -199,15 +184,15 @@ const SpotlightHero = ({ item }) => {
                     <div className="flex items-center gap-4">
                         <button
                             onClick={() => navigate(`/watch/${item.media_type || 'movie'}/${item.id}`)}
-                            className="bg-white text-black px-8 py-3.5 rounded-full font-bold text-lg flex items-center gap-3 hover:bg-white/90 hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+                            className="bg-white text-black px-6 py-2.5 rounded-full font-bold text-base flex items-center gap-2 hover:bg-white/90 transition-colors"
                         >
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M8 5v14l11-7z" />
                             </svg>
                             Play
                         </button>
                     </div>
-                </motion.div>
+                </div>
             </div>
             </div>
 

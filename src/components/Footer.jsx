@@ -1,6 +1,5 @@
 import { FaInstagram } from 'react-icons/fa';
 import { SiPhonepe } from 'react-icons/si';
-import { MdTrendingUp } from 'react-icons/md';
 
 const Footer = () => {
     return (
@@ -42,7 +41,7 @@ const Footer = () => {
                                 href="https://t.sliceit.com/s?c=A4QgA2g&ic=HITEN88802" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
-                                className="block w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-purple-900/40"
+                                className="block w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-full transition-all shadow-lg shadow-purple-900/40"
                             >
                                 Get Started
                             </a>
@@ -71,7 +70,7 @@ const Footer = () => {
                                 href="https://groww.in/" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
-                                className="block w-full bg-[#00d59d] hover:bg-[#00c08b] text-[#0a0a0a] font-bold py-3 rounded-xl transition-all shadow-lg shadow-[#00d59d]/20"
+                                className="block w-full bg-[#00d59d] hover:bg-[#00e6aa] text-black font-bold py-3 rounded-full transition-all shadow-lg shadow-[#00d59d]/40"
                             >
                                 Start Investing
                             </a>

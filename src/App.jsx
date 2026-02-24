@@ -1,6 +1,5 @@
-import { Suspense, lazy, useEffect } from 'react';
+import { Suspense, lazy } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import AmbientLight from './components/AmbientLight';
 import Footer from './components/Footer';
@@ -8,30 +7,20 @@ import Footer from './components/Footer';
 // Lazy load pages
 const Home = lazy(() => import('./pages/Home'));
 const Watch = lazy(() => import('./pages/Watch'));
-const NotFound = lazy(() => import('./pages/NotFound'));
 const Catalog = lazy(() => import('./pages/Catalog'));
 const MyList = lazy(() => import('./pages/MyList'));
 
 import { useOnlineStatus } from './hooks/useOnlineStatus';
 
+import ScrollToTop from './components/ScrollToTop';
+
 function App() {
     const location = useLocation();
     const isOnline = useOnlineStatus();
 
-    // Fade out initial loader on mount
-    useEffect(() => {
-        const loader = document.querySelector('.initial-loader');
-        if (loader) {
-            // Small delay to ensure the app is actually painted
-            requestAnimationFrame(() => {
-                loader.classList.add('fade-out');
-                setTimeout(() => loader.remove(), 600); // Remove from DOM after transition
-            });
-        }
-    }, []);
-
     return (
         <>
+            <ScrollToTop />
             <AmbientLight />
 
             {/* Offline Banner */}
@@ -47,30 +36,21 @@ function App() {
             )}
 
             <div className="min-h-screen bg-[#0a0a0a]">
-                <AnimatePresence mode="wait">
-                    <Suspense fallback={
-                        <div className="h-screen w-full flex flex-col items-center justify-center bg-[#0a0a0a]">
-                            <div className="w-[60px] h-[60px] bg-white rounded-full animate-[ping_1.5s_ease-in-out_infinite] opacity-20 relative">
-                                <div className="absolute inset-0 bg-white rounded-full blur-xl opacity-50"></div>
-                            </div>
-                            {/* Matching the index.html vibe but using Tailwind */}
-                            <div className="absolute w-[60px] h-[60px] bg-white rounded-full opacity-80 animate-pulse shadow-[0_0_30px_rgba(255,255,255,0.4)]"></div>
-                        </div>
-                    }>
-                        <Routes location={location} key={location.pathname}>
-                            <Route path="/" element={<Home />} />
-                            <Route path="/movies" element={<Catalog type="movies" />} />
-                            <Route path="/tv" element={<Catalog type="tv" />} />
-                            <Route path="/new" element={<Catalog type="new" />} />
-                            <Route path="/mylist" element={<MyList />} />
-                            <Route path="/watch/:type/:id" element={<Watch />} />
-                            <Route path="*" element={<NotFound />} />
-                        </Routes>
-                        <div className="animate-fade-in-up">
-                            <Footer />
-                        </div>
-                    </Suspense>
-                </AnimatePresence>
+                <Suspense fallback={
+                    <div className="h-screen w-screen flex items-center justify-center bg-[#0a0a0a]">
+                        <span className="text-white/50 text-sm font-medium tracking-widest uppercase">Loading...</span>
+                    </div>
+                }>
+                    <Routes location={location} key={location.pathname}>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/movies" element={<Catalog type="movies" />} />
+                        <Route path="/tv" element={<Catalog type="tv" />} />
+                        <Route path="/new" element={<Catalog type="new" />} />
+                        <Route path="/mylist" element={<MyList />} />
+                        <Route path="/watch/:type/:id" element={<Watch />} />
+                    </Routes>
+                    <Footer />
+                </Suspense>
             </div>
         </>
     );

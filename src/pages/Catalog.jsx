@@ -1,4 +1,3 @@
-import { useParams } from 'react-router-dom';
 import MasonryGrid from '../components/MasonryGrid';
 import { api } from '../services/api';
 

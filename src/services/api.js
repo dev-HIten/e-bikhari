@@ -29,4 +29,5 @@ export const api = {
     getRecommended: (type, id, page = 1) => fetchTMDB(`/${type}/${id}/recommendations?page=${page}`),
     getVideos: (type, id) => fetchTMDB(`/${type}/${id}/videos`),
     getCredits: (type, id) => fetchTMDB(`/${type}/${id}/credits`),
+    getSeasonDetails: (id, seasonNumber) => fetchTMDB(`/tv/${id}/season/${seasonNumber}`),
 };

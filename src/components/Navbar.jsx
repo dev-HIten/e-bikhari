@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { FiSearch, FiX } from "react-icons/fi";
 
@@ -117,17 +116,14 @@ const Navbar = () => {
     };
 
     return (
-        <motion.nav
-            className="fixed top-0 left-0 right-0 z-50 flex items-center gap-4 px-4 py-3 transition-all duration-500"
+        <nav
+            className="fixed top-0 left-0 right-0 z-50 flex items-center gap-4 px-4 py-3 transition-all duration-300 animate-fade-in-down"
             style={{
-                background: 'rgba(0, 0, 0, 0.5)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
+                background: isScrolled ? 'rgba(10, 10, 10, 0.8)' : 'linear-gradient(to bottom, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0) 100%)',
+                backdropFilter: isScrolled ? 'blur(20px)' : 'none',
+                WebkitBackdropFilter: isScrolled ? 'blur(20px)' : 'none',
+                borderBottom: isScrolled ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid transparent'
             }}
-            initial={{ y: -100 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.5 }}
         >
             {/* Categories (Scrollable Left) - Always visible now */}
             <div 
@@ -142,10 +138,10 @@ const Navbar = () => {
                     <button
                         key={g.id}
                         onClick={() => handleGenreClick(g)}
-                        className={`whitespace-nowrap px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 border ${
+                        className={`whitespace-nowrap px-5 py-2 rounded-full font-bold text-sm md:text-base transition-colors ${
                             genreId === String(g.id)
-                                ? 'bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.4)]'
-                                : 'bg-white/10 border-white/5 text-white/70 hover:bg-white/20 hover:text-white hover:border-white/20'
+                                ? 'bg-white text-black hover:bg-white/90'
+                                : 'bg-white/10 text-white/80 hover:bg-white/20 hover:text-white'
                         }`}
                     >
                         {g.name}
@@ -154,25 +150,24 @@ const Navbar = () => {
             </div>
 
             {/* Search Pill (FixedWidth Right) */}
-            <motion.div
-                layout
+            <div
                 onClick={() => {
                     setIsSearchExpanded(true);
                     if (inputRef.current) inputRef.current.focus();
                 }}
-                className={`flex-shrink-0 flex items-center h-10 rounded-full transition-all duration-300 border ${
+                className={`flex-shrink-0 flex items-center h-[44px] rounded-full transition-all duration-300 ${
                     isSearchExpanded 
-                    ? "bg-[#1c1c1e] border-white/20 w-full md:w-[300px]" 
-                    : "bg-white/10 border-white/5 w-10 md:w-[260px] hover:bg-white/20 cursor-pointer"
+                    ? "bg-[#1c1c1e] w-full md:w-[300px]" 
+                    : "bg-white/10 w-[44px] md:w-[260px] hover:bg-white/20 cursor-pointer"
                 }`}
             >
-                <div className="flex items-center justify-center w-10 h-10 text-white/50">
-                    <FiSearch size={18} />
+                <div className="flex items-center justify-center w-[44px] h-[44px] text-white/50">
+                    <FiSearch size={20} />
                 </div>
                 
                 <input
                     ref={inputRef}
-                    className={`bg-transparent border-none outline-none text-white text-sm placeholder-white/30 h-full w-full pr-4 ${
+                    className={`bg-transparent border-none outline-none text-white text-base font-medium placeholder-white/30 h-full w-full pr-4 ${
                         !isSearchExpanded ? "hidden md:block" : "block"
                     }`}
                     placeholder="Search movies & shows..."
@@ -190,13 +185,13 @@ const Navbar = () => {
                             e.stopPropagation(); // Prevent focusing input again if needed
                             handleClearSearch();
                         }}
-                        className="w-10 h-10 flex items-center justify-center text-white/50 hover:text-white transition-colors"
+                        className="w-[44px] h-[44px] flex items-center justify-center text-white/50 hover:text-white transition-colors"
                      >
-                         <FiX size={18} />
+                         <FiX size={20} />
                      </button>
                 )}
-            </motion.div>
-        </motion.nav>
+            </div>
+        </nav>
     );
 };
 

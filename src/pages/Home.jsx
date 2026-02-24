@@ -5,7 +5,6 @@ import SpotlightHero from '../components/SpotlightHero';
 import MasonryGrid from '../components/MasonryGrid';
 import NetworkError from '../components/NetworkError';
 import { useWatchlist } from '../hooks/useWatchlist';
-import { motion } from 'framer-motion';
 
 import LazyLoad from '../components/LazyLoad';
 

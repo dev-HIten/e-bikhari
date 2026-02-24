@@ -1,14 +1,10 @@
 import { useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import { IMAGE_BASE } from '../services/api';
 import SkeletonCard from './SkeletonCard';
 import NetworkError from './NetworkError';
 import MovieCard from './MovieCard';
 
 const MasonryGrid = ({ title, queryKey, queryFn }) => {
-    const navigate = useNavigate();
     const { data, isLoading, isError, refetch } = useQuery({
         queryKey: [queryKey],
         queryFn,
@@ -16,10 +12,6 @@ const MasonryGrid = ({ title, queryKey, queryFn }) => {
         staleTime: 1000 * 60 * 5, // 5 minutes
     });
     const ref = useRef(null);
-
-    // Subtle parallax for grid items
-    const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-    const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
     if (isError) {
         return (
@@ -54,23 +46,21 @@ const MasonryGrid = ({ title, queryKey, queryFn }) => {
                     </svg>
                 </div>
                 <h2 className="text-2xl font-bold text-white mb-2">No Results Found</h2>
-                <p className="text-white/50 max-w-sm">We couldn't find anything matching your search. Try adjusting your filters or search term.</p>
+                <p className="text-white/50 max-w-sm">We couldn&apos;t find anything matching your search. Try adjusting your filters or search term.</p>
             </section>
         );
     }
 
     return (
         <section ref={ref} className="px-4 md:px-8 py-12 max-w-[1800px] mx-auto">
-            <motion.h2
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="text-4xl md:text-5xl font-black mb-12 text-white/90 tracking-tighter"
-            >
+            <h2 className="text-3xl md:text-4xl font-black mb-8 text-white/90 tracking-tight">
                 {title}
-            </motion.h2>
+            </h2>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 gap-y-12" style={{ contentVisibility: 'auto', containIntrinsicSize: '1px 1000px' }}>
+            <div 
+                className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 gap-y-8 md:gap-y-12" 
+                style={{ contentVisibility: 'auto', containIntrinsicSize: '1px 1000px' }}
+            >
                 {items.map((item) => (
                     <MovieCard key={item.id} item={item} />
                 ))}
