@@ -31,7 +31,7 @@ const Catalog = ({ type }) => {
     }
 
     return (
-        <div className="min-h-screen bg-[#0a0a0a] pt-24 pb-32">
+        <div className="min-h-[100dvh] bg-[#0a0a0a] pt-20 pb-24 md:pt-24 md:pb-32">
             <MasonryGrid
                 title={title}
                 queryKey={queryKey}

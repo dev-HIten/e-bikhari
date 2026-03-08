@@ -3,6 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import { api, BACKDROP_BASE, IMAGE_BASE } from '../services/api';
 import { useState, useRef, useEffect } from 'react';
 import MasonryGrid from '../components/MasonryGrid';
+import VideoPlayer from '../components/Watch/VideoPlayer';
+import EpisodeSelector from '../components/Watch/EpisodeSelector';
 
 const Watch = () => {
     const { type, id } = useParams();
@@ -12,18 +14,26 @@ const Watch = () => {
     const [episode, setEpisode] = useState(1);
     const containerRef = useRef(null);
 
-    // Reset state on id change
+    // Fetch Details & Credits
+    const { data: item, isLoading } = useQuery({
+        queryKey: ['details', type, id],
+        queryFn: () => api.getDetails(type, id)
+    });
+
+    // Reset state on id change and update title
     useEffect(() => {
         setSeason(1);
         setEpisode(1);
         setIsPlaying(false);
     }, [id, type]);
 
-    // Fetch Details & Credits
-    const { data: item, isLoading } = useQuery({
-        queryKey: ['details', type, id],
-        queryFn: () => api.getDetails(type, id)
-    });
+    useEffect(() => {
+        if (item?.title || item?.name) {
+            document.title = `${item.title || item.name} - Vexo`;
+        } else {
+            document.title = 'Vexo';
+        }
+    }, [item]);
 
     // Fetch Credits
     const { data: credits } = useQuery({
@@ -64,7 +74,7 @@ const Watch = () => {
             {/* Navigation */}
             <nav className="fixed top-0 left-0 right-0 z-50 p-6 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent pointer-events-none">
                 <button
-                    onClick={() => navigate('/')}
+                    onClick={() => navigate(-1)}
                     className="pointer-events-auto bg-white/5 backdrop-blur-xl border border-white/10 px-5 py-2.5 rounded-full flex items-center gap-2 hover:bg-white/10 transition-colors group"
                 >
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -79,34 +89,13 @@ const Watch = () => {
 
                 {isPlaying ? (
                     // Video Player Mode
-                    <div
-                        className="w-full h-screen fixed inset-0 z-50 bg-black flex flex-col transition-opacity duration-300"
-                    >
-                        <div className="flex-1 relative">
-                            <iframe
-                                src={embedUrl}
-                                className="w-full h-full border-0"
-                                allowFullScreen
-                                allow="autoplay; encrypted-media; picture-in-picture"
-                            />
-                            <button
-                                onClick={() => setIsPlaying(false)}
-                                className="absolute top-6 right-6 bg-white/10 backdrop-blur-md p-3 rounded-full hover:bg-white/20 transition-colors border border-white/5"
-                            >
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M18 6L6 18M6 6l12 12" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
+                    <VideoPlayer embedUrl={embedUrl} onCancel={() => setIsPlaying(false)} />
                 ) : (
                     // Details Mode
                     <div className="max-w-[1600px] mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-[1fr,400px] gap-12 lg:gap-24 items-end min-h-[60vh]">
 
                         {/* Left: Info */}
-                        <div
-                            className="space-y-8"
-                        >
+                        <div className="space-y-8">
                             <div className="space-y-4">
                                 <span className="inline-block px-3 py-1 rounded bg-white/10 backdrop-blur-md text-xs font-bold tracking-wider uppercase text-white/80 border border-white/5">
                                     {type === 'tv' ? 'TV Series' : 'Feature Film'}
@@ -151,41 +140,14 @@ const Watch = () => {
 
                                 {/* TV Series Selection */}
                                 {type === 'tv' && item?.seasons && (
-                                    <div className="space-y-4 bg-white/5 p-6 rounded-2xl border border-white/10">
-                                        <div className="flex items-center gap-4">
-                                            <select
-                                                value={season}
-                                                onChange={(e) => setSeason(Number(e.target.value))}
-                                                className="bg-black/40 border border-white/10 rounded-lg px-4 py-2 text-white/90 focus:outline-none focus:border-white/30 cursor-pointer"
-                                            >
-                                                {item.seasons.filter(s => s.season_number > 0).map(s => (
-                                                    <option key={s.id} value={s.season_number}>
-                                                        Season {s.season_number}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                            <span className="text-sm text-white/50">
-                                                {seasonDetails?.episodes?.length || 0} Episodes
-                                            </span>
-                                        </div>
-
-                                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 max-h-[200px] overflow-y-auto pr-2 custom-scrollbar">
-                                            {seasonDetails?.episodes?.map(ep => (
-                                                <button
-                                                    key={ep.id}
-                                                    onClick={() => setEpisode(ep.episode_number)}
-                                                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-all text-left truncate ${
-                                                        episode === ep.episode_number
-                                                            ? 'bg-white text-black'
-                                                            : 'bg-white/5 text-white/70 hover:bg-white/10'
-                                                    }`}
-                                                    title={ep.name}
-                                                >
-                                                    {ep.episode_number}. {ep.name}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
+                                    <EpisodeSelector
+                                        item={item}
+                                        season={season}
+                                        setSeason={setSeason}
+                                        seasonDetails={seasonDetails}
+                                        episode={episode}
+                                        setEpisode={setEpisode}
+                                    />
                                 )}
                             </div>
 
@@ -222,9 +184,7 @@ const Watch = () => {
                         </div>
 
                         {/* Right: Poster (Desktop Only) */}
-                        <div
-                            className="hidden lg:block relative"
-                        >
+                        <div className="hidden lg:block relative">
                             <img
                                 src={`${IMAGE_BASE}${item.poster_path}`}
                                 alt="Poster"

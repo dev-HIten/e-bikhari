@@ -83,8 +83,7 @@ const Dock = () => {
 
   return (
     <div
-      className="fixed z-50 flex flex-col items-end right-5 md:right-8 transition-all duration-500 animate-fade-in-down"
-      style={{ top: 32 }} // Fixed top position
+      className="fixed z-50 flex flex-col items-end right-4 md:right-8 top-4 md:top-8 transition-all duration-500 animate-fade-in-down"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -98,8 +97,8 @@ const Dock = () => {
         >
           <input
             ref={inputRef}
-            className={`bg-transparent border-none outline-none text-white text-base font-medium placeholder-white/30 h-full min-w-0 transition-all duration-300 ${
-              isSearchExpanded ? "w-[260px] md:w-[300px] opacity-100" : "w-0 opacity-0 px-0"
+            className={`bg-transparent border-none outline-none text-white text-sm md:text-base font-medium placeholder-white/30 h-full min-w-0 transition-all duration-300 ${
+              isSearchExpanded ? "w-[200px] sm:w-[260px] md:w-[300px] opacity-100" : "w-0 opacity-0 px-0"
             }`}
             placeholder="Search..."
             onChange={handleSearchChangeDebounced}

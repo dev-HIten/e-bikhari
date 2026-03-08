@@ -105,7 +105,7 @@ const SpotlightHero = ({ item }) => {
     };
 
     return (
-        <div className="relative h-[90vh] w-full bg-[#0B0C0E] overflow-hidden group">
+        <div className="relative h-[85svh] md:h-[90vh] w-full bg-[#0B0C0E] overflow-hidden group">
             {/* Layer 1: Base (Video/Image) - z-0 */}
             <div
                 className="absolute inset-0 z-0"
@@ -148,7 +148,7 @@ const SpotlightHero = ({ item }) => {
             />
 
             {/* Layer 3: Content - z-10 */}
-            <div className="absolute inset-0 z-10 flex flex-col justify-end pb-[15%] px-4 md:px-8">
+            <div className="absolute inset-0 z-10 flex flex-col justify-end pb-[25%] sm:pb-[15%] px-4 md:px-8">
                 <div className="w-full max-w-[1800px] mx-auto">
                 <div className="max-w-4xl animate-fade-in-up">
                     {/* Tag / Badge */}
@@ -162,12 +162,12 @@ const SpotlightHero = ({ item }) => {
                     </div>
 
                     {/* Title */}
-                    <h1 className="text-4xl md:text-5xl lg:text-7xl font-black leading-none tracking-tight text-white mb-4">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black leading-none tracking-tight text-white mb-2 md:mb-4">
                         {item.title || item.name}
                     </h1>
 
                     {/* Metadata Row */}
-                    <div className="flex flex-wrap items-center gap-3 text-white/90 text-sm font-medium mb-4">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-white/90 text-xs sm:text-sm font-medium mb-3 md:mb-4">
                         <span className="text-[#46d369]">98% Match</span>
                         <span>{(item.release_date || item.first_air_date || '').substring(0, 4)}</span>
                         {details?.runtime > 0 && <span>{Math.floor(details.runtime / 60)}h {details.runtime % 60}m</span>}
@@ -176,7 +176,7 @@ const SpotlightHero = ({ item }) => {
                     </div>
 
                     {/* Description */}
-                    <p className="text-white/80 text-sm md:text-base leading-relaxed max-w-[90%] md:max-w-[70%] line-clamp-3 mb-6">
+                    <p className="text-white/80 text-xs sm:text-sm md:text-base leading-relaxed max-w-[100%] sm:max-w-[85%] md:max-w-[70%] line-clamp-3 sm:line-clamp-4 mb-4 md:mb-6">
                         {item.overview}
                     </p>
 
@@ -184,7 +184,7 @@ const SpotlightHero = ({ item }) => {
                     <div className="flex items-center gap-4">
                         <button
                             onClick={() => navigate(`/watch/${item.media_type || 'movie'}/${item.id}`)}
-                            className="bg-white text-black px-6 py-2.5 rounded-full font-bold text-base flex items-center gap-2 hover:bg-white/90 transition-colors"
+                            className="bg-white text-black px-5 py-2 sm:px-6 sm:py-2.5 rounded-full font-bold text-sm sm:text-base flex items-center gap-2 hover:bg-white/90 transition-colors"
                         >
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M8 5v14l11-7z" />

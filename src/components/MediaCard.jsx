@@ -9,7 +9,7 @@ const MediaCard = ({ item }) => {
 
     return (
         <motion.div
-            className="relative flex-shrink-0 cursor-pointer rounded-xl overflow-hidden aspect-video w-[240px] md:w-[280px] group shadow-[0_8px_30px_rgba(0,0,0,0.2)] ring-1 ring-white/10 hover:ring-white/30 transition-all duration-500"
+            className="relative flex-shrink-0 cursor-pointer rounded-xl overflow-hidden aspect-video w-[200px] sm:w-[240px] md:w-[280px] group shadow-[0_8px_30px_rgba(0,0,0,0.2)] ring-1 ring-white/10 hover:ring-white/30 transition-all duration-500"
             whileHover={{
                 scale: 1.05,
                 zIndex: 20,

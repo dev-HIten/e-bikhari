@@ -1,26 +1,34 @@
-import { memo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { memo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { IMAGE_BASE } from '../services/api';
 
 const MovieCard = memo(({ item }) => {
-    const navigate = useNavigate();
+    const [imageError, setImageError] = useState(false);
 
     if (!item.poster_path) return null;
 
     return (
-        <div
-            className="group cursor-pointer flex flex-col gap-2 relative z-0 hover:z-20 transition-all duration-200 ease-out hover:scale-[1.03] will-change-transform"
-            onClick={() => navigate(`/watch/${item.media_type || 'movie'}/${item.id}`)}
+        <Link
+            to={`/watch/${item.media_type || 'movie'}/${item.id}`}
+            className="group cursor-pointer flex flex-col gap-2 relative z-0 hover:z-20 transition-all duration-200 ease-out hover:scale-[1.03] will-change-transform outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-lg"
         >
             {/* Card Image Container */}
             <div className="relative w-full aspect-[2/3] rounded-lg overflow-hidden bg-[#1a1a1a] shadow-md group-hover:shadow-xl transition-shadow duration-200 ring-1 ring-white/5 group-hover:ring-white/20">
-                <img
-                    src={`${IMAGE_BASE}${item.poster_path}`}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
-                    loading="lazy"
-                    decoding="async"
-                />
+                {imageError ? (
+                    <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center">
+                        <span className="text-white/30 text-xs font-bold uppercase tracking-widest mb-2">Image Unavailable</span>
+                        <span className="text-white/50 text-sm font-medium line-clamp-3">{item.title || item.name}</span>
+                    </div>
+                ) : (
+                    <img
+                        src={`${IMAGE_BASE}${item.poster_path}`}
+                        alt={item.title || item.name}
+                        className="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
+                        loading="lazy"
+                        decoding="async"
+                        onError={() => setImageError(true)}
+                    />
+                )}
 
                 {/* Simple Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent opacity-50 group-hover:opacity-70 transition-opacity duration-200" />
@@ -43,7 +51,7 @@ const MovieCard = memo(({ item }) => {
                     <span>{item.media_type || 'Movie'}</span>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 });
 
